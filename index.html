@@ -316,11 +316,11 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
 
   /* ---------- Projects ---------- */
   const PROJECTS = [
-    {cat:'Personal project · 2026', name:'LMAgent', link:'https://github.com/fedifedifedi/LMAgent',
+    {cat:'Personal project', name:'LMAgent', link:'https://github.com/fedifedifedi/LMAgent',
      img:'assets/projects/lmagent.webp', alt:'LMAgent cover letter page with sources shown, demo profile',
      desc:"An AI agent that writes a cover letter tailored to each job offer, straight from a CV (PDF or even a photo). Every sentence cites the part of the profile it comes from, so the agent can't invent anything. It analyses the offer, drafts, critiques its own letter, rewrites it, and exports a clean one-page PDF.",
      tags:['Next.js','TypeScript','Gemini','Zod','Prisma','GSAP']},
-    {cat:'Personal project · 2026', name:"Fedi's Planner", link:'https://github.com/fedifedifedi/fedis-planner',
+    {cat:'Personal project', name:"Fedi's Planner", link:'https://github.com/fedifedifedi/fedis-planner',
      img:'assets/projects/fedis-planner.webp', alt:"Fedi's Planner weekly timetable solved with CP-SAT",
      desc:"Builds conflict-free school timetables with Google's CP-SAT solver. When a teacher is absent, it replans by moving as few classes as possible. When no timetable exists, it tells you exactly which constraints clash. An exact reformulation of the room constraints cut the model by 14×.",
      tags:['Python','OR-Tools','FastAPI','Next.js','pytest']},
@@ -340,11 +340,11 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
      desc:'When machine learning meets football: an analytics platform built on real player and match data.',
      points:['9,048 FIFA 23 players, 245 teams','58,892 real matches','81% accuracy on player positions'],
      tags:['Python','Random Forest','XGBoost']},
-    {cat:'Personal project', name:'Study Assistant', wip:true,
-     desc:'Turns course PDFs into sourced answers, flashcards and quizzes, with spaced repetition to plan reviews.',
-     points:['Sourced answers from PDFs','Flashcards and quizzes','Spaced repetition'],
-     tags:['RAG','Web app']},
-    {cat:'ITEAM, with Oussama Jbeli', name:'DiagSein IA', wip:true,
+    {cat:'Personal project', name:'TaskApp', link:'https://github.com/fedifedifedi/taskapp',
+     desc:'A full-stack task manager: sign in, create tasks, track their status and due dates, and spot overdue work at a glance, with search, filters and a dashboard.',
+     points:['Express API, Prisma, PostgreSQL','React front end, shared Zod schemas','Playwright tests, CI, Docker, Railway'],
+     tags:['TypeScript','React','Express','Prisma','PostgreSQL']},
+    {cat:'ITEAM, with Oussama Jbeli', name:'DiagSein IA',
      desc:'A decision-support tool built for the Advanced AI course to assist breast cancer diagnosis.',
      points:['Medical decision support','Machine learning models','Course project, Advanced AI'],
      tags:['Machine Learning','Healthcare']},
@@ -352,7 +352,7 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
   const MORE = [
     {cat:'AI, data & IoT', name:'KπBIOS', desc:'A platform combining AI, data analytics, IoT and software engineering to turn business data into decisions.'},
     {cat:'IoT & embedded', name:'Smart Water Management', desc:'Monitors water consumption, detects abnormal usage and sends real-time alerts.'},
-    {cat:'Personal project', name:'TaskApp', desc:'A task management web application.', link:'https://github.com/fedifedifedi/taskapp'},
+    {cat:'Personal project', name:'Study Assistant', desc:'Turns course PDFs into sourced answers, flashcards and quizzes, with spaced repetition to plan reviews.'},
   ];
   document.getElementById('plist').innerHTML = PROJECTS.map((p,i) => `
     <article class="pcard fade" style="--d:${(i%2)*.1}s">
