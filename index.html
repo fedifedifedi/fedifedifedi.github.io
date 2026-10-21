@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fedi Limem | AI & Data Science</title>
 <meta name="description" content="Fedi Limem, AI & Data Science engineering student at ITEAM, Tunisia. LLM fine-tuning, RAG, machine learning, DevOps and IoT.">
+<link rel="canonical" href="https://fedifedifedi.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fedifedifedi.github.io/">
+<meta property="og:title" content="Fedi Limem | AI & Data Science">
+<meta property="og:description" content="LLMs, RAG assistants, AI agents and optimisation. Projects, experience and contact.">
+<meta property="og:image" content="https://fedifedifedi.github.io/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fedi Limem, AI & Data Science">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fedi Limem | AI & Data Science">
+<meta name="twitter:description" content="LLMs, RAG assistants, AI agents and optimisation. Projects, experience and contact.">
+<meta name="twitter:image" content="https://fedifedifedi.github.io/og-image.jpg">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%230C0C0C'/><text x='50' y='68' font-size='52' font-family='Arial Black,Arial' font-weight='900' fill='%23BBCCD7' text-anchor='middle'>F</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,6 +56,8 @@ img{display:block;max-width:100%}
 .nav a{text-decoration:none;font-weight:500;text-transform:uppercase;letter-spacing:.06em;font-size:clamp(.85rem,1.5vw,1.4rem);transition:opacity .2s}
 .nav a:hover{opacity:.7}
 .hero h1{font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:-.03em;white-space:nowrap;text-align:center;font-size:13.5vw;margin-top:1vw}
+.hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.hero-cta .btn-line{background:rgba(12,12,12,.55);backdrop-filter:blur(4px)}
 .neural{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .nav,.hero h1{position:relative;z-index:1}
 .hero-bottom{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding:0 40px 40px;position:relative;z-index:20}
@@ -57,7 +72,8 @@ img{display:block;max-width:100%}
   .nav{padding:24px 20px 0}
   .hero h1{font-size:14vw;margin-top:24px}
   .hero-bottom{flex-direction:column;align-items:flex-start;padding:0 20px 28px}
-  .portrait{bottom:auto;top:30%}
+  .portrait{position:relative;left:auto;right:auto;top:auto;bottom:auto;order:2;margin:auto;width:min(64vw,36vh)}
+  .hero-bottom{order:3;margin-top:0}
 }
 
 /* MARQUEE */
@@ -138,11 +154,29 @@ img{display:block;max-width:100%}
 .mini h3{font-weight:500;text-transform:uppercase;font-size:1.4rem;margin:6px 0 12px}
 .mini p{font-weight:300;line-height:1.6;opacity:.85}
 .mini a{display:inline-block;margin-top:16px;font-weight:500;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}
+/* compact project cards */
+.pgrid{max-width:1150px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.ccard{border:2px solid var(--light);border-radius:44px;padding:32px;display:flex;flex-direction:column;gap:14px}
+.chead{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.ccard .n{font-weight:900;line-height:1;font-size:clamp(2.6rem,5vw,4.5rem)}
+.cicon{width:64px;height:64px;border-radius:20px;display:grid;place-items:center;background:linear-gradient(var(--ga,123deg),#04112B 7%,#1F5BFF 38%,#7621B0 72%,#00A6A6 100%);box-shadow:4px 4px 12px rgba(119,33,177,.6) inset}
+.cicon svg{width:30px;height:30px}
+.ccard .cat{text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;opacity:.6}
+.ccard h3{font-weight:500;text-transform:uppercase;font-size:clamp(1.25rem,2.2vw,1.6rem);line-height:1.1;margin-top:-8px}
+.ccard p{font-weight:300;line-height:1.65;opacity:.85}
+.cpoints li{list-style:none;position:relative;padding-left:24px;font-weight:500;line-height:1.4;margin-top:6px}
+.cpoints li::before{content:"";position:absolute;left:0;top:.45em;width:10px;height:10px;border-radius:50%;border:2px solid #1F5BFF}
+.ccard .tags{margin-top:auto;padding-top:8px}
+.ccard .btn-line{align-self:flex-start;padding:10px 24px;font-size:.8rem;margin-top:6px}
+.panel .r ul{display:flex;flex-direction:column;gap:16px}
+.picon{width:52px;height:52px;opacity:.95;margin-bottom:10px}
+@media (max-width:860px){.pgrid{grid-template-columns:1fr}.ccard{border-radius:36px;padding:24px}}
 .more-title{max-width:1150px;margin:80px auto 0;font-weight:500;text-transform:uppercase;letter-spacing:.14em;opacity:.6}
 
 /* CONTACT */
 .contact{padding:120px 20px 140px;display:flex;flex-direction:column;align-items:center}
 .contact .big-title{margin-bottom:80px}
+.contact-lead{max-width:34em;margin:-40px auto 56px;text-align:center;font-weight:300;line-height:1.6;opacity:.8;font-size:clamp(1rem,2vw,1.35rem)}
 .clinks{display:flex;flex-direction:column;align-items:center;gap:36px}
 .clinks a{display:flex;align-items:center;gap:16px;text-decoration:none;font-weight:500;font-size:clamp(1.1rem,3vw,2rem);transition:opacity .2s}
 .clinks a:hover{opacity:.7}
@@ -156,13 +190,14 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
 .btn-grad{position:relative;overflow:hidden;background-size:180% 180%;animation:gradShift 6s ease-in-out infinite alternate}
 .btn-grad::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);pointer-events:none}
 .btn-line{transition:background .2s,box-shadow .3s,border-color .3s}
-.panel .r{background-size:200% 200%;animation:gradShift 9s ease-in-out infinite alternate}
+.panel .r{background-image:linear-gradient(var(--ga,123deg),#04112B 7%,#1F5BFF 38%,#7621B0 72%,#00A6A6 100%);background-size:200% 200%;animation:gradShift 9s ease-in-out infinite alternate}
 .panel .r li{transition:transform .3s}
 .panel .r li::before{transition:background .3s,box-shadow .3s}
 .tags span{transition:border-color .3s,background .3s,transform .3s}
-.pcard,.mini{position:relative;isolation:isolate;transition:opacity .8s cubic-bezier(.25,.1,.25,1) var(--d,0s),transform .8s cubic-bezier(.25,.1,.25,1) var(--d,0s),border-color .4s 0s,box-shadow .4s 0s}
-.pcard::before,.mini::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(31,91,255,.16),rgba(118,33,176,.08) 45%,transparent 70%)}
-.pid .n{transition:color .35s,-webkit-text-stroke-color .35s}
+.pcard,.mini,.ccard{position:relative;isolation:isolate;transition:opacity .8s cubic-bezier(.25,.1,.25,1) var(--d,0s),transform .8s cubic-bezier(.25,.1,.25,1) var(--d,0s),border-color .4s 0s,box-shadow .4s 0s}
+.pcard::before,.mini::before,.ccard::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(31,91,255,.16),rgba(118,33,176,.08) 45%,transparent 70%)}
+.pid .n,.ccard .n{transition:color .35s,-webkit-text-stroke-color .35s}
+.cicon,.cpoints li{transition:transform .35s}
 .svc-row .n{background:var(--grad-btn);-webkit-background-clip:text;background-clip:text;transition:color .4s}
 .svc-row h3,.svc-row p{transition:transform .4s}
 .exp-row{position:relative}
@@ -174,8 +209,11 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
   .btn-line:hover{border-color:#fff;box-shadow:0 0 24px rgba(31,91,255,.45)}
   .pcard:hover{border-color:#1F5BFF;box-shadow:0 0 0 1px rgba(118,33,176,.6),0 24px 70px rgba(31,91,255,.18)}
   .mini:hover{border-color:rgba(31,91,255,.7);box-shadow:0 18px 50px rgba(118,33,176,.18)}
-  .pcard:hover::before,.mini:hover::before{opacity:1}
-  .pcard:hover .pid .n{color:transparent;-webkit-text-stroke:2px var(--light)}
+  .ccard:hover{border-color:#1F5BFF;box-shadow:0 0 0 1px rgba(118,33,176,.6),0 20px 60px rgba(31,91,255,.18)}
+  .pcard:hover::before,.mini:hover::before,.ccard:hover::before{opacity:1}
+  .pcard:hover .pid .n,.ccard:hover .n{color:transparent;-webkit-text-stroke:2px var(--light)}
+  .ccard:hover .cicon{transform:rotate(-8deg) scale(1.08)}
+  .ccard:hover .cpoints li{transform:translateX(5px)}
   .pcard:hover .panel .r li{transform:translateX(6px)}
   .pcard:hover .panel .r li:nth-child(2){transition-delay:.06s}
   .pcard:hover .panel .r li:nth-child(3){transition-delay:.12s}
@@ -194,7 +232,7 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
   .reveal-text .c{opacity:1!important}
   .btn-grad,.panel .r{animation:none}
   .btn-grad:hover::after{animation:none}
-  .pcard,.mini{transition:border-color .4s,box-shadow .4s}
+  .pcard,.mini,.ccard{transition:border-color .4s,box-shadow .4s}
 }
 </style>
 </head>
@@ -206,7 +244,7 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
   <canvas class="neural" id="neural" aria-hidden="true"></canvas>
   <nav class="nav fade" style="--y:-20px">
     <a href="#about">About</a>
-    <a href="#experience">Pro</a>
+    <a href="#experience">Experience</a>
     <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
   </nav>
@@ -215,7 +253,7 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
 
   <div class="hero-bottom">
     <p class="tagline fade" style="--y:20px;--d:.35s">curious about data, serious about models, always shipping 🚀</p>
-    <div class="fade" style="--y:20px;--d:.5s"><a class="btn-grad" href="#contact">Contact me</a></div>
+    <div class="hero-cta fade" style="--y:20px;--d:.5s"><a class="btn-line" href="Fedi-Limem-CV.pdf" download>Download CV</a><a class="btn-grad" href="#contact">Contact me</a></div>
   </div>
 
   <!-- Portrait bubble: assets/portrait.webp -->
@@ -312,6 +350,7 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
 <section class="projects" id="projects">
   <h2 class="big-title grad fade" style="--y:40px">Projects</h2>
   <div class="plist" id="plist"></div>
+  <div class="pgrid" id="pgrid"></div>
   <p class="more-title fade">More projects</p>
   <div class="more" id="more"></div>
 </section>
@@ -319,6 +358,7 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
 <!-- ============ CONTACT ============ -->
 <section class="contact" id="contact">
   <h2 class="big-title grad fade" style="--y:40px">Contact</h2>
+  <p class="contact-lead fade" style="--y:20px">Got a project, a question about AI, or just want to talk models and data? My inbox is open.</p>
   <div class="clinks">
     <a class="fade" style="--y:20px;--d:.1s" href="mailto:fedilimem7@gmail.com">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
@@ -356,36 +396,52 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
   row2.innerHTML = [...ROW2,...ROW2,...ROW2].map(tile).join('');
 
   /* ---------- Projects ---------- */
+  /* Pictograms drawn in the same line style as the About decorations */
+  const ICONS = {
+    letter:'<rect x="4" y="2.5" width="14" height="19" rx="2"/><path d="M8 7.5h6M8 11h6M8 14.5h3"/><path d="m14.5 17.5 2 2 4-4.5"/>',
+    calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 14h2M11 14h2M15 14h2M7 17.5h2M11 17.5h2"/>',
+    chat:'<path d="M21 12a8.5 8.5 0 0 1-12.3 7.6L3.5 21l1.4-4.7A8.5 8.5 0 1 1 21 12z"/><path d="m8.5 10 2.5 2-2.5 2M13 14h3"/>',
+    chip:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M10 10h4v4h-4zM9.5 2.5v3.5M14.5 2.5v3.5M9.5 18v3.5M14.5 18v3.5M2.5 9.5H6M2.5 14.5H6M18 9.5h3.5M18 14.5h3.5"/>',
+    search:'<path d="M13 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2H11M13 2.5l5 5V10M13 2.5v5h5"/><circle cx="16" cy="16" r="3.2"/><path d="m18.4 18.4 2.6 2.6"/>',
+    ball:'<circle cx="12" cy="12" r="9.5"/><path d="M12 8l3.6 2.6-1.4 4.2H9.8l-1.4-4.2zM12 8V2.5M15.6 10.6l5-1.6M14.2 14.8l3 4.3M9.8 14.8l-3 4.3M8.4 10.6l-5-1.6"/>',
+    check:'<path d="m3.5 6 1.8 1.8L8.5 4.5M3.5 12.2 5.3 14l3.2-3.3M3.5 18.4l1.8 1.8 3.2-3.3M11.5 6.2h9M11.5 12.4h9M11.5 18.6h9"/>',
+    book:'<path d="M2.5 5a2 2 0 0 1 2-2H10a2 2 0 0 1 2 2v16a2 2 0 0 0-2-2H2.5zM21.5 5a2 2 0 0 0-2-2H14a2 2 0 0 0-2 2v16a2 2 0 0 1 2-2h7.5z"/>',
+  };
+  const icon = (k, cls) => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[k]}</svg>`;
+
+  /* Featured projects (large cards), then compact cards, then "More projects" */
   const PROJECTS = [
-    {cat:'Personal project', name:'LMAgent', link:'https://github.com/fedifedifedi/LMAgent',
+    {cat:'Personal project', name:'LMAgent', link:'https://github.com/fedifedifedi/LMAgent', icon:'letter', ga:'123deg',
      desc:"An AI agent that writes a cover letter tailored to each job offer, straight from a CV (PDF or even a photo). Every sentence cites the part of the profile it comes from, so the agent can't invent anything. It analyses the offer, drafts, critiques its own letter, rewrites it, and exports a clean one-page PDF.",
      points:['Every sentence cites its source','Analyse, draft, critique, rewrite','Clean one-page PDF export'],
      tags:['Next.js','TypeScript','Gemini','Zod','Prisma','GSAP']},
-    {cat:'Personal project', name:"Fedi's Planner", link:'https://github.com/fedifedifedi/fedis-planner',
+    {cat:'Personal project', name:"Fedi's Planner", link:'https://github.com/fedifedifedi/fedis-planner', icon:'calendar', ga:'200deg',
      desc:"Builds conflict-free school timetables with Google's CP-SAT solver. When a teacher is absent, it replans by moving as few classes as possible. When no timetable exists, it tells you exactly which constraints clash. An exact reformulation of the room constraints cut the model by 14×.",
      points:['Conflict-free timetables with CP-SAT','Minimal replanning when a teacher is absent','Explains which constraints clash'],
      tags:['Python','OR-Tools','FastAPI','Next.js','pytest']},
-    {cat:'Personal project', name:'DocBot', link:'https://github.com/fedifedifedi/docbot',
-     desc:'A RAG assistant for small businesses. Upload your company documents, ask questions in plain language, get answers grounded in your own files.',
-     points:['Retrieval-augmented answers','Next.js, Prisma, PostgreSQL','Deployed on Railway'],
-     tags:['RAG','Next.js','Prisma','PostgreSQL']},
-    {cat:'Wind Consulting', name:'AI ChatOps Platform',
+    {cat:'Wind Consulting', name:'AI ChatOps Platform', icon:'chat', ga:'60deg',
      desc:'Engineers control infrastructure directly from Telegram, with a RAG layer that answers operational questions.',
      points:['16 microservices with StackStorm','Qdrant vector memory','Vault secrets, Grafana monitoring'],
      tags:['StackStorm','RAG','Qdrant','Vault','Docker']},
-    {cat:'Talan Tunisia', name:'LLM Fine-Tuning',
+    {cat:'Talan Tunisia', name:'LLM Fine-Tuning', icon:'chip', ga:'160deg',
      desc:'Qwen2.5-Coder-0.5B adapted with LoRA to software engineering best practices, then served as a Gradio chatbot.',
      points:['Java, SOLID, Clean Code','Git & SonarQube practices','Interactive Gradio chatbot'],
      tags:['Qwen2.5-Coder','LoRA','Gradio']},
-    {cat:'ITEAM, with Oussama Jbeli', name:"PrediT'Kick", link:'https://lnkd.in/e69iz7TU',
+  ];
+  const COMPACT = [
+    {cat:'Personal project', name:'DocBot', link:'https://github.com/fedifedifedi/docbot', icon:'search', ga:'123deg',
+     desc:'A RAG assistant for small businesses. Upload your company documents, ask questions in plain language, get answers grounded in your own files.',
+     points:['Retrieval-augmented answers','Next.js, Prisma, PostgreSQL','Deployed on Railway'],
+     tags:['RAG','Next.js','Prisma','PostgreSQL']},
+    {cat:'ITEAM, with Oussama Jbeli', name:"PrediT'Kick", link:'https://lnkd.in/e69iz7TU', icon:'ball', ga:'200deg',
      desc:'When machine learning meets football: an analytics platform built on real player and match data.',
      points:['9,048 FIFA 23 players, 245 teams','58,892 real matches','81% accuracy on player positions'],
      tags:['Python','Random Forest','XGBoost']},
-    {cat:'Personal project', name:'TaskApp', link:'https://github.com/fedifedifedi/taskapp',
+    {cat:'Personal project', name:'TaskApp', link:'https://github.com/fedifedifedi/taskapp', icon:'check', ga:'60deg',
      desc:'A full-stack task manager: sign in, create tasks, track their status and due dates, and spot overdue work at a glance, with search, filters and a dashboard.',
      points:['Express API, Prisma, PostgreSQL','React front end, shared Zod schemas','Playwright tests, CI, Docker, Railway'],
      tags:['TypeScript','React','Express','Prisma','PostgreSQL']},
-    {cat:'Personal project', name:'Study Assistant',
+    {cat:'Personal project', name:'Study Assistant', icon:'book', ga:'160deg',
      desc:'Turns course PDFs into sourced answers, flashcards and quizzes, with spaced repetition to plan reviews.',
      points:['Sourced answers from PDFs','Flashcards and quizzes','Spaced repetition'],
      tags:['RAG','Web app']},
@@ -407,8 +463,18 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
       <div class="panel">
         ${p.img?`<img src="${p.img}" alt="${p.name} preview" loading="lazy">`:`
         <div class="l"><p>${p.desc}</p><div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join('')}</div></div>
-        <ul class="r">${p.points.map(x=>`<li>${x}</li>`).join('')}</ul>`}
+        <div class="r" style="--ga:${p.ga}">${p.icon?icon(p.icon,'picon'):''}<ul>${p.points.map(x=>`<li>${x}</li>`).join('')}</ul></div>`}
       </div>
+    </article>`).join('');
+  document.getElementById('pgrid').innerHTML = COMPACT.map((p,i) => `
+    <article class="ccard fade" style="--d:${(i%2)*.1}s">
+      <div class="chead"><span class="n">${String(PROJECTS.length+i+1).padStart(2,'0')}</span><span class="cicon" style="--ga:${p.ga}">${icon(p.icon,'')}</span></div>
+      <span class="cat">${p.cat}</span>
+      <h3>${p.name}</h3>
+      <p>${p.desc}</p>
+      <ul class="cpoints">${p.points.map(x=>`<li>${x}</li>`).join('')}</ul>
+      <div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+      ${p.link?`<a class="btn-line" href="${p.link}" target="_blank" rel="noopener">View project</a>`:''}
     </article>`).join('');
   document.getElementById('more').innerHTML = MORE.map((m,i) => `
     <div class="mini fade" style="--d:${i*.1}s"><span class="cat">${m.cat}</span><h3>${m.name}</h3><p>${m.desc}</p>${m.link?`<a href="${m.link}" target="_blank" rel="noopener">View project</a>`:''}</div>`).join('');
@@ -425,7 +491,7 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
 
   /* ---------- Spotlight that follows the cursor on cards ---------- */
   document.addEventListener('pointermove', e => {
-    const card = e.target.closest && e.target.closest('.pcard,.mini');
+    const card = e.target.closest && e.target.closest('.pcard,.mini,.ccard');
     if (!card) return;
     const r = card.getBoundingClientRect();
     card.style.setProperty('--mx', `${e.clientX - r.left}px`);
