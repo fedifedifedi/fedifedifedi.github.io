@@ -43,6 +43,8 @@ img{display:block;max-width:100%}
 .nav a{text-decoration:none;font-weight:500;text-transform:uppercase;letter-spacing:.06em;font-size:clamp(.85rem,1.5vw,1.4rem);transition:opacity .2s}
 .nav a:hover{opacity:.7}
 .hero h1{font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:-.03em;white-space:nowrap;text-align:center;font-size:13.5vw;margin-top:1vw}
+.neural{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.nav,.hero h1{position:relative;z-index:1}
 .hero-bottom{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding:0 40px 40px;position:relative;z-index:20}
 .tagline{font-weight:300;text-transform:uppercase;letter-spacing:.03em;line-height:1.3;max-width:280px;font-size:clamp(.8rem,1.4vw,1.4rem)}
 .portrait{position:absolute;left:0;right:0;margin:0 auto;bottom:18vh;width:min(26vw,40vh,400px);min-width:200px;z-index:10;pointer-events:none}
@@ -157,6 +159,7 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
+  <canvas class="neural" id="neural" aria-hidden="true"></canvas>
   <nav class="nav fade" style="--y:-20px">
     <a href="#about">About</a>
     <a href="#experience">Pro</a>
@@ -375,6 +378,79 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
   const words = about.textContent.trim().split(/\s+/);
   about.innerHTML = words.map(w => `<span class="w">${[...w].map(c=>`<span class="c">${c}</span>`).join('')}</span>`).join(' ');
   const chars = about.querySelectorAll('.c');
+
+  /* ---------- Neural network behind the hero ---------- */
+  (function(){
+    const cv = document.getElementById('neural'), hero = document.getElementById('top');
+    const g = cv.getContext('2d');
+    const COLORS = ['#1F5BFF','#7621B0','#00A6A6'];
+    let W, H, nodes = [], pulses = [], links = [], running = false, mouse = {x:-1e4, y:-1e4}, last = 0;
+    const LINK = () => Math.min(170, Math.max(110, W * .11));
+    function size(){
+      const dpr = Math.min(devicePixelRatio || 1, 2), sameW = W === hero.clientWidth;
+      W = hero.clientWidth; H = hero.clientHeight;
+      cv.width = W * dpr; cv.height = H * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (sameW && nodes.length) return; // mobile address bar: keep the network as it is
+      const n = Math.round(Math.min(90, Math.max(36, W * H / 15000)));
+      nodes = Array.from({length:n}, () => ({
+        x: Math.random() * W, y: Math.random() * H,
+        vx: (Math.random() - .5) * .25, vy: (Math.random() - .5) * .25,
+        r: 1.4 + Math.random() * 2.2, c: Math.random() < .35 ? COLORS[Math.random() * 3 | 0] : null,
+      }));
+      pulses = [];
+    }
+    function draw(t){
+      const dt = Math.min(50, t - last || 16); last = t;
+      g.clearRect(0, 0, W, H);
+      const L = LINK();
+      links = [];
+      for (const p of nodes){
+        if (running && !reduce){
+          p.x += p.vx * dt / 16; p.y += p.vy * dt / 16;
+          if (p.x < 0 || p.x > W) p.vx *= -1;
+          if (p.y < 0 || p.y > H) p.vy *= -1;
+        }
+      }
+      for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++){
+        const a = nodes[i], b = nodes[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d > L) continue;
+        links.push([a, b]);
+        const near = Math.max(0, 1 - Math.hypot((a.x + b.x) / 2 - mouse.x, (a.y + b.y) / 2 - mouse.y) / 220);
+        g.strokeStyle = `rgba(187,204,215,${(1 - d / L) * (.24 + near * .35)})`;
+        g.lineWidth = 1;
+        g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke();
+      }
+      for (const p of nodes){
+        const near = Math.max(0, 1 - Math.hypot(p.x - mouse.x, p.y - mouse.y) / 220);
+        g.globalAlpha = .45 + near * .55;
+        g.fillStyle = p.c || '#BBCCD7';
+        g.beginPath(); g.arc(p.x, p.y, p.r + near * 1.5, 0, 7); g.fill();
+        if (p.c){ g.globalAlpha = .12 + near * .2; g.beginPath(); g.arc(p.x, p.y, p.r * 3.2, 0, 7); g.fill(); }
+      }
+      // signals travelling along links, like activations
+      if (!reduce && links.length && pulses.length < 14 && Math.random() < .08){
+        const [a, b] = links[Math.random() * links.length | 0];
+        pulses.push({a, b, k: 0, c: COLORS[Math.random() * 3 | 0]});
+      }
+      pulses = pulses.filter(s => (s.k += dt / 900) < 1);
+      for (const s of pulses){
+        const x = s.a.x + (s.b.x - s.a.x) * s.k, y = s.a.y + (s.b.y - s.a.y) * s.k;
+        g.globalAlpha = Math.sin(Math.PI * s.k);
+        g.fillStyle = s.c; g.shadowColor = s.c; g.shadowBlur = 12;
+        g.beginPath(); g.arc(x, y, 2.4, 0, 7); g.fill();
+        g.shadowBlur = 0;
+      }
+      g.globalAlpha = 1;
+      if (running && !reduce) requestAnimationFrame(draw);
+    }
+    size(); draw(0);
+    if (!reduce){
+      new IntersectionObserver(([e]) => { const was = running; running = e.isIntersecting; if (running && !was){ last = 0; requestAnimationFrame(draw); } }).observe(hero);
+      hero.addEventListener('mousemove', e => { const r = hero.getBoundingClientRect(); mouse = {x: e.clientX - r.left, y: e.clientY - r.top}; }, {passive:true});
+      hero.addEventListener('mouseleave', () => { mouse = {x:-1e4, y:-1e4}; });
+    }
+    let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { size(); if (!running || reduce) draw(0); }, 150); });
+  })();
 
   /* ---------- Magnet portrait ---------- */
   const magnet = document.getElementById('magnet');
