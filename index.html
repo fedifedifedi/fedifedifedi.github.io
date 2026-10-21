@@ -120,7 +120,13 @@ img{display:block;max-width:100%}
 .d1{top:4%;left:4%}.d2{bottom:8%;left:9%}.d3{top:4%;right:4%}.d4{bottom:8%;right:9%}
 @media (max-width:640px){.deco{width:70px;opacity:.5}}
 
-.about-photo{width:clamp(150px,18vw,220px);aspect-ratio:1;object-fit:cover;border-radius:50%;outline:2px solid #fff;outline-offset:6px;box-shadow:0 0 60px rgba(118,33,176,.45)}
+.about-ring{position:relative;width:clamp(170px,20vw,250px);aspect-ratio:1;border-radius:50%;padding:5px;isolation:isolate}
+.about-ring::before,.about-ring::after{content:"";position:absolute;border-radius:50%;z-index:-1;background:conic-gradient(#1F5BFF,#7621B0,#00A6A6,#1F5BFF);animation:ringSpin 7s linear infinite}
+.about-ring::before{inset:0}
+.about-ring::after{inset:-14px;filter:blur(24px);opacity:.55}
+@keyframes ringSpin{to{transform:rotate(360deg)}}
+.about-photo{display:block;width:100%;height:100%;aspect-ratio:1;object-fit:cover;object-position:50% 35%;border-radius:50%;border:5px solid var(--bg);transition:transform .5s ease}
+@media (hover:hover){.about-ring:hover .about-photo{transform:scale(1.04)}}
 
 /* WHAT I DO */
 .services{background:var(--white);color:var(--bg);border-radius:60px 60px 0 0;padding:128px 40px 160px}
@@ -274,7 +280,7 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
   html{scroll-behavior:auto}
   .fade{opacity:1;transform:none;transition:none}
   .reveal-text .c{opacity:1!important}
-  .btn-grad,.panel .r{animation:none}
+  .btn-grad,.panel .r,.about-ring::before,.about-ring::after{animation:none}
   .btn-grad:hover::after{animation:none}
   .pcard,.mini,.ccard,.scard{transition:border-color .4s,box-shadow .4s}
 }
@@ -339,7 +345,7 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
 
   <div class="stack">
     <h2 class="big-title grad fade" style="--y:40px" data-i18n="about.title">About me</h2>
-    <img class="about-photo fade" src="assets/about.webp" alt="Fedi Limem" width="700" height="700" loading="lazy" decoding="async">
+    <div class="about-ring fade"><img class="about-photo" src="assets/about.webp" alt="Fedi Limem" width="700" height="700" loading="lazy" decoding="async"></div>
     <p class="reveal-text" id="aboutText" data-i18n="about.text">This isn't a resume, LinkedIn has the full version. I'm Fedi, a Tunisian engineering student in my final year of AI and Data Science at ITEAM. I started with IoT and embedded systems, then fell for language models. Since then I've fine-tuned Qwen with LoRA, built RAG assistants that cite their sources, plugged a ChatOps platform into Telegram, taught a model to predict football matches, built an agent that writes cover letters without making things up, and a solver that builds school timetables. I like the whole path, from the dataset to the thing people actually use.</p>
   </div>
   <a class="btn-grad fade" href="https://www.linkedin.com/in/fedi-limem-8808a8279/" target="_blank" rel="noopener" data-i18n="about.btn">There you go</a>
