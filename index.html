@@ -115,10 +115,6 @@ img{display:block;max-width:100%}
 .reveal-text{text-align:center;font-weight:500;line-height:1.65;max-width:600px;font-size:clamp(1rem,2vw,1.35rem)}
 .reveal-text .w{display:inline-block;white-space:nowrap}
 .reveal-text .c{opacity:.2;transition:opacity .1s linear}
-.deco{position:absolute;width:clamp(90px,13vw,190px);opacity:.9}
-.deco svg{width:100%;height:auto}
-.d1{top:4%;left:4%}.d2{bottom:8%;left:9%}.d3{top:4%;right:4%}.d4{bottom:8%;right:9%}
-@media (max-width:640px){.deco{width:70px;opacity:.5}}
 
 .about-ring{position:relative;width:clamp(170px,20vw,250px);aspect-ratio:1;border-radius:50%;padding:5px;isolation:isolate}
 .about-ring::before,.about-ring::after{content:"";position:absolute;border-radius:50%;z-index:-1;background:conic-gradient(#1F5BFF,#7621B0,#00A6A6,#1F5BFF);animation:ringSpin 7s linear infinite}
@@ -330,18 +326,6 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
 
 <!-- ============ ABOUT ============ -->
 <section class="about" id="about">
-  <div class="deco d1 fade" style="--x:-80px;--y:0;--d:.1s" aria-hidden="true">
-    <svg viewBox="0 0 120 120"><rect x="22" y="22" width="76" height="76" rx="14" fill="none" stroke="#BBCCD7" stroke-width="5"/><rect x="42" y="42" width="36" height="36" rx="6" fill="#1F5BFF"/><g stroke="#BBCCD7" stroke-width="5" stroke-linecap="round"><path d="M40 8v14M60 8v14M80 8v14M40 98v14M60 98v14M80 98v14M8 40h14M8 60h14M8 80h14M98 40h14M98 60h14M98 80h14"/></g></svg>
-  </div>
-  <div class="deco d2 fade" style="--x:-80px;--y:0;--d:.25s" aria-hidden="true">
-    <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" fill="#D7E2EA"/><path d="M60 34l18 13-7 21H49l-7-21z" fill="#0C0C0C"/><path d="M60 34V12M78 47l20-8M71 68l13 18M49 68L36 86M42 47l-20-8" stroke="#0C0C0C" stroke-width="5"/></svg>
-  </div>
-  <div class="deco d3 fade" style="--x:80px;--y:0;--d:.15s" aria-hidden="true">
-    <svg viewBox="0 0 120 120"><g stroke="#BBCCD7" stroke-width="3"><path d="M20 30L60 60M20 30L60 90M20 90L60 30M20 90L60 60M60 30L100 60M60 60L100 60M60 90L100 60M20 30L60 30M20 90L60 90"/></g><circle cx="20" cy="30" r="9" fill="#7621B0"/><circle cx="20" cy="90" r="9" fill="#7621B0"/><circle cx="60" cy="30" r="9" fill="#1F5BFF"/><circle cx="60" cy="60" r="9" fill="#1F5BFF"/><circle cx="60" cy="90" r="9" fill="#1F5BFF"/><circle cx="100" cy="60" r="11" fill="#00A6A6"/></svg>
-  </div>
-  <div class="deco d4 fade" style="--x:80px;--y:0;--d:.3s" aria-hidden="true">
-    <svg viewBox="0 0 120 120"><rect x="10" y="10" width="100" height="100" rx="22" fill="url(#pg2)"/><defs><linearGradient id="pg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1F5BFF"/><stop offset="1" stop-color="#7621B0"/></linearGradient></defs><g fill="#fff"><rect x="28" y="64" width="12" height="28" rx="3"/><rect x="48" y="48" width="12" height="44" rx="3"/><rect x="68" y="56" width="12" height="36" rx="3"/><rect x="88" y="30" width="6" height="62" rx="3"/></g><path d="M28 50l20-16 20 8 24-18" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </div>
 
   <div class="stack">
     <h2 class="big-title grad fade" style="--y:40px" data-i18n="about.title">About me</h2>
@@ -483,7 +467,7 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
   const tile = t => `<div class="tile ${t.style||''}">${t.img?`<img src="${t.img}" alt="" loading="lazy">`:`<b>${t.big}</b><span>${L(t,'small')}</span>`}</div>`;
   const row1 = document.getElementById('row1'), row2 = document.getElementById('row2');
 
-  /* ---------- Pictograms, in the same line style as the About decorations ---------- */
+  /* ---------- Line pictograms for skills and projects ---------- */
   const ICONS = {
     letter:'<rect x="4" y="2.5" width="14" height="19" rx="2"/><path d="M8 7.5h6M8 11h6M8 14.5h3"/><path d="m14.5 17.5 2 2 4-4.5"/>',
     calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 14h2M11 14h2M15 14h2M7 17.5h2M11 17.5h2"/>',
