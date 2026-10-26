@@ -303,8 +303,15 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
 .vc-ico:hover{opacity:1;transform:scale(1.12)}
 .vc-ico svg{width:100%;height:100%}
 .vc-right{position:relative;display:flex;flex-direction:column;align-items:center;border-left:.25cqw solid rgba(43,36,21,.22);padding-left:4cqw;margin-left:-0cqw}
-.vc-qr{position:relative;width:24cqw;aspect-ratio:1;padding:2.1cqw;background:#fff;border-radius:2.6cqw;box-shadow:0 1cqw 2.4cqw rgba(60,40,10,.22)}
-.vc-qr img{width:100%;height:100%;display:block}
+/* QR above the gold light (z-index), white quiet zone inside the SVG, click to enlarge */
+.vc-qr{position:relative;z-index:2;width:25cqw;aspect-ratio:1;padding:.8cqw;border:0;background:#fff;border-radius:2.2cqw;box-shadow:0 1cqw 2.4cqw rgba(60,40,10,.22);cursor:zoom-in}
+.vc-qr img{width:100%;height:100%;display:block;image-rendering:pixelated}
+.vc-face::after{z-index:1}
+.vc-qrbox{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:rgba(6,6,8,.82);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .25s}
+.vc-qrbox.on{opacity:1;pointer-events:auto}
+.vc-qrbox div{background:#fff;border-radius:22px;padding:18px;width:min(380px,82vw);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.vc-qrbox img{width:100%;display:block;image-rendering:pixelated}
+.vc-qrbox p{margin:14px 0 0;text-align:center;color:#2b2415;font-weight:500}
 .vc-qr::before{content:"";position:absolute;inset:-1.6cqw;pointer-events:none;
   background:linear-gradient(#2b2415,#2b2415) top left/3.2cqw .45cqw,linear-gradient(#2b2415,#2b2415) top left/.45cqw 3.2cqw,
   linear-gradient(#2b2415,#2b2415) top right/3.2cqw .45cqw,linear-gradient(#2b2415,#2b2415) top right/.45cqw 3.2cqw,
@@ -494,7 +501,7 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
             </div>
           </div>
           <div class="vc-right">
-            <div class="vc-qr"><img src="assets/contact-qr.svg" alt="QR code: Fedi Limem's contact card" width="200" height="200"></div>
+            <button class="vc-qr" type="button" id="vcQr" aria-label="Enlarge the QR code" data-gc="card-qr"><img src="assets/contact-qr.svg" alt="QR code: Fedi Limem's contact card" width="200" height="200"></button>
             <p class="vc-scan" data-i18n="card.scan">Scan to save<br>my contact</p>
             <a class="vc-cv" href="Fedi-Limem-CV.pdf" download data-gc="card-cv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14"/></svg>CV · PDF</a>
             <button class="vc-flip" type="button" data-flip data-gc="card-flip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg><span data-i18n="card.back">BACK</span></button>
@@ -515,6 +522,10 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
     </div></div>
     <p class="vc-toast" id="vcToast" data-i18n="card.copied" role="status">Number copied</p>
   </div>
+  <div class="vc-qrbox" id="vcQrBox" role="dialog" aria-modal="true" aria-label="QR code"><div>
+    <img src="assets/contact-qr.svg" alt="QR code: Fedi Limem's contact card" width="380" height="380">
+    <p data-i18n="card.scan2">Scan with your phone camera to save my contact</p>
+  </div></div>
 </section>
 <footer>© 2026 Fedi Limem</footer>
 
@@ -551,7 +562,7 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
     'proj.title':"Projets", 'proj.more':"Autres projets",
     'contact.lead':"Un projet, une question sur l'IA, ou simplement envie de parler modèles et données ? Ma boîte mail est ouverte.",
     'card.tag':"Je construis une IA qui cite ses sources.", 'card.tag2':"Fine-tuning de LLM · RAG · agents IA · MLOps",
-    'card.scan':"Scannez pour enregistrer<br>mon contact", 'card.back':"VERSO", 'card.front':"RECTO", 'card.copied':"Numéro copié",
+    'card.scan':"Scannez pour enregistrer<br>mon contact", 'card.back':"VERSO", 'card.front':"RECTO", 'card.copied':"Numéro copié", 'card.scan2':"Scannez avec l'appareil photo de votre téléphone pour enregistrer mon contact",
   };
   const UI = {en:{view:'View project'}, fr:{view:'Voir le projet'}};
   let lang = 'en';
@@ -906,6 +917,12 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
       t.classList.add('on'); setTimeout(() => t.classList.remove('on'), 1600);
     });
   }
+  // QR enlarged in a dialog (the card is small on phones and keeps floating): click, Escape or click outside to close
+  const qrBox = document.getElementById('vcQrBox');
+  const closeQr = () => qrBox.classList.remove('on');
+  document.getElementById('vcQr').addEventListener('click', () => qrBox.classList.add('on'));
+  qrBox.addEventListener('click', closeQr);
+  addEventListener('keydown', e => { if (e.key === 'Escape') closeQr(); });
   const faces = vcard.querySelectorAll('.vc-face');
   vcard.querySelectorAll('[data-flip]').forEach(b => b.addEventListener('click', () => {
     const back = vcard.classList.toggle('flipped');
