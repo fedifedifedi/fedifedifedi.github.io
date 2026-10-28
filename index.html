@@ -220,6 +220,19 @@ html[lang="fr"] .hero h1{font-size:10.8vw}
 .panel.media .r ul{gap:12px}
 .pvideo{display:block;width:100%;height:auto;border-radius:16px;background:#ebe3cf;box-shadow:0 18px 40px rgba(4,17,43,.5);outline:1px solid rgba(255,255,255,.25)}
 .panel img.pvideo{position:static;inset:auto;height:auto;object-fit:contain}
+/* confidential stand-in, same size as the screenshots */
+.pconf{position:relative;width:100%;aspect-ratio:1200/732;border-radius:16px;overflow:hidden;background:#0d1426;box-shadow:0 18px 40px rgba(4,17,43,.5);outline:1px solid rgba(255,255,255,.25)}
+.pconf-ui{position:absolute;inset:0;padding:7%;display:grid;grid-template-columns:26% 1fr;gap:6%;filter:blur(5px);opacity:.6}
+.pconf-ui i{display:block;border-radius:8px;background:rgba(255,255,255,.2)}
+.pconf-ui .side{height:100%;background:rgba(255,255,255,.12)}
+.pconf-ui .main i{height:11%;margin-bottom:6%}
+.pconf-ui .main .w70{width:70%}.pconf-ui .main .w50{width:50%}.pconf-ui .main .w80{width:80%}
+.pconf-badge{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:0 10%;text-align:center;color:#fff;background:radial-gradient(circle at 50% 50%,rgba(8,12,28,.55),transparent 75%)}
+.pconf-lock{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.6);backdrop-filter:blur(4px);margin-bottom:4px}
+.pconf-lock svg{width:26px;height:26px}
+.pconf-badge b{font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:1rem}
+.pconf-badge small{font-weight:300;font-size:.9rem;line-height:1.4;opacity:.85}
+@media (max-width:860px){.pconf{border-radius:12px}.pconf-lock{width:44px;height:44px}.pconf-lock svg{width:20px;height:20px}.pconf-badge b{font-size:.85rem}.pconf-badge small{font-size:.78rem}}
 @media (max-width:860px){.pvideo{border-radius:12px}}
 @media (max-width:860px){.pgrid{grid-template-columns:1fr}.ccard{border-radius:36px;padding:24px}}
 .more-title{max-width:1150px;margin:80px auto 0;font-weight:500;text-transform:uppercase;letter-spacing:.14em;opacity:.6}
@@ -667,12 +680,14 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
      pointsFr:['Emplois du temps sans conflit avec CP-SAT',"Replanification minimale en cas d'absence",'Explique quelles contraintes se contredisent'],
      tags:['Python','OR-Tools','FastAPI','Next.js','pytest']},
     {cat:'Wind Consulting', name:'AI ChatOps Platform', nameFr:'Plateforme ChatOps IA', icon:'chat', ga:'60deg',
+     confidential:{company:'Wind Consulting'},
      desc:'Engineers control infrastructure directly from Telegram, with a RAG layer that answers operational questions.',
      descFr:"Les ingénieurs pilotent l'infrastructure directement depuis Telegram, avec une couche RAG qui répond aux questions opérationnelles.",
      points:['16 microservices with StackStorm','Qdrant vector memory','Vault secrets, Grafana monitoring'],
      pointsFr:['16 microservices avec StackStorm','Mémoire vectorielle Qdrant','Secrets Vault, monitoring Grafana'],
      tags:['StackStorm','RAG','Qdrant','Vault','Docker']},
     {cat:'Talan Tunisia', catFr:'Talan Tunisie', name:'LLM Fine-Tuning', nameFr:'Fine-tuning de LLM', icon:'chip', ga:'160deg',
+     confidential:{company:'Talan Tunisia', companyFr:'Talan Tunisie'},
      desc:'Qwen2.5-Coder-0.5B adapted with LoRA to software engineering best practices, then served as a Gradio chatbot.',
      descFr:'Qwen2.5-Coder-0.5B adapté avec LoRA aux bonnes pratiques du génie logiciel, puis servi sous forme de chatbot Gradio.',
      points:['Java, SOLID, Clean Code','Git & SonarQube practices','Interactive Gradio chatbot'],
@@ -717,6 +732,19 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
      descFr:"Un outil d'aide à la décision développé pour le cours d'IA avancée, pour assister le diagnostic du cancer du sein."},
   ];
 
+  /* Company projects: no screenshots (confidential), a blurred stand-in with a lock and the reason */
+  const CONF = {
+    en:{title:'Confidential', text:c => `Internal project: screenshots stay with ${c}.`},
+    fr:{title:'Confidentiel', text:c => `Projet interne : les captures restent chez ${c}.`},
+  };
+  const confidentialBox = p => {
+    const c = L(p.confidential, 'company'), t = CONF[lang];
+    return `<div class="pconf" role="img" aria-label="${t.title}. ${t.text(c)}">
+      <div class="pconf-ui" aria-hidden="true"><i class="side"></i><div class="main"><i></i><i class="w70"></i><i></i><i class="w50"></i><i class="w80"></i></div></div>
+      <div class="pconf-badge" aria-hidden="true"><span class="pconf-lock"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3M12 14.5v2.5"/></svg></span><b>${t.title}</b><small>${t.text(c)}</small></div>
+    </div>`;
+  };
+
   /* Project videos: sources are attached only when the card nears the screen, paused when it leaves */
   const videoIO = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => {
     const v = e.target;
@@ -753,9 +781,9 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
           </div>
           ${p.link?`<a class="btn-line" href="${p.link}" target="_blank" rel="noopener" data-gc="project-${p.gc||slug(p.name)}">${p.linkLabel?L(p,'linkLabel'):view}</a>`:''}
         </div>
-        <div class="panel${p.video||p.image?' media':''}">
+        <div class="panel${p.video||p.image||p.confidential?' media':''}">
           <div class="l"><p>${L(p,'desc')}</p><div class="tags">${L(p,'tags').map(t=>`<span>${t}</span>`).join('')}</div></div>
-          <div class="r" style="--ga:${p.ga}">${p.video?`<video class="pvideo" width="${p.video.w}" height="${p.video.h}" muted loop playsinline preload="none" poster="${p.video.poster}" aria-label="${L(p.video,'alt')}" data-webm="${p.video.webm}" data-mp4="${p.video.mp4}"></video>`:p.image?`<img class="pvideo" src="${p.image.src}" width="${p.image.w}" height="${p.image.h}" alt="${L(p.image,'alt')}" loading="lazy" decoding="async">`:icon(p.icon,'picon')}<ul>${L(p,'points').map(x=>`<li>${x}</li>`).join('')}</ul></div>
+          <div class="r" style="--ga:${p.ga}">${p.video?`<video class="pvideo" width="${p.video.w}" height="${p.video.h}" muted loop playsinline preload="none" poster="${p.video.poster}" aria-label="${L(p.video,'alt')}" data-webm="${p.video.webm}" data-mp4="${p.video.mp4}"></video>`:p.image?`<img class="pvideo" src="${p.image.src}" width="${p.image.w}" height="${p.image.h}" alt="${L(p.image,'alt')}" loading="lazy" decoding="async">`:p.confidential?confidentialBox(p):icon(p.icon,'picon')}<ul>${L(p,'points').map(x=>`<li>${x}</li>`).join('')}</ul></div>
         </div>
       </article>`).join('');
     document.getElementById('pgrid').innerHTML = COMPACT.map((p,i) => `
