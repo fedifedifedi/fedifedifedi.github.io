@@ -154,6 +154,16 @@ img{display:block;max-width:100%}
 .tags span{border:1px solid var(--line);border-radius:999px;padding:4px 14px;font-size:.85rem;font-weight:400}
 @media (max-width:760px){.dark-panel{border-radius:40px 40px 0 0;padding:80px 20px 20px}.exp{margin-top:56px}.exp-row{grid-template-columns:1fr;gap:8px;padding:32px 0}}
 
+/* RECOMMENDATION */
+.reco{padding:120px 40px 0}
+.reco-card{max-width:900px;margin:110px auto 0;border:1px solid var(--line);border-radius:44px;padding:48px;display:flex;flex-direction:column;align-items:flex-start;gap:26px;position:relative;isolation:isolate;transition:border-color .4s,box-shadow .4s}
+.reco-card::before{content:"\201C";position:absolute;top:-6px;left:34px;font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:7rem;line-height:1;background:var(--grad-btn);-webkit-background-clip:text;background-clip:text;color:transparent;pointer-events:none}
+.reco-card blockquote{font-family:"Fraunces",Georgia,serif;font-weight:500;line-height:1.4;font-size:clamp(1.2rem,2.6vw,1.9rem);padding-top:34px}
+.reco-card figcaption b{display:block;font-weight:500;text-transform:uppercase;letter-spacing:.06em}
+.reco-card figcaption span{display:block;margin-top:4px;font-weight:300;opacity:.6}
+@media (hover:hover){.reco-card:hover{border-color:#1F5BFF;box-shadow:0 0 0 1px rgba(118,33,176,.6),0 20px 60px rgba(31,91,255,.18)}}
+@media (max-width:760px){.reco{padding:90px 20px 0}.reco-card{margin-top:56px;border-radius:28px;padding:26px}.reco-card::before{left:22px;font-size:5.5rem}}
+
 /* PROJECTS */
 .projects{padding:120px 40px}
 .plist{max-width:1150px;margin:110px auto 0}
@@ -481,6 +491,19 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
   </div>
 </section>
 
+<!-- ============ RECOMMENDATION ============ -->
+<section class="reco" id="recommendation">
+  <h2 class="big-title grad fade" style="--y:40px" data-i18n="reco.title">Reference</h2>
+  <figure class="reco-card fade" style="--y:30px">
+    <blockquote data-i18n="reco.quote">“I recommend Fedi Limem strongly and without reservation for any data science, machine learning or AI position.”</blockquote>
+    <figcaption>
+      <b>Salah Sammari</b>
+      <span data-i18n="reco.role">Founder, CEO &amp; CTO, Tradrly IT Solutions</span>
+    </figcaption>
+    <a class="btn-line" href="assets/Lettre_Recommandation_Fedi_Limem_Tradrly.pdf" target="_blank" rel="noopener" data-i18n="reco.btn" data-gc="reco-letter">Read the full letter (PDF)</a>
+  </figure>
+</section>
+
 <!-- ============ SKILLS ============ -->
 <section class="skills" id="skills">
   <h2 class="big-title grad fade" style="--y:40px" data-i18n="skills.title">Skills</h2>
@@ -593,6 +616,10 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
     'exp2.p':"Fine-tuning de Qwen2.5-Coder-0.5B avec LoRA sur les bonnes pratiques du génie logiciel (Java, SOLID, Clean Code, Git, SonarQube), livré sous forme de chatbot Gradio interactif.",
     'exp3.when':"2025 – 2027", 'exp3.h':"Diplôme d'ingénieur, IA &amp; Data Science", 'exp3.co':"ITEAM, Tunisie",
     'exp3.p':"Dernière année (2e et 3e années du cycle ingénieur à l'ITEAM). Avant cela : 1re année du cycle ingénieur en génie informatique à ESPRIT Monastir (2024 – 2025), et licence en ingénierie des systèmes informatiques, IoT &amp; embarqué, à l'ISI Mahdia (2024).",
+    'reco.title':"Référence",
+    'reco.quote':"« Je recommande Fedi Limem fortement et sans réserve pour tout poste en data science, machine learning ou IA. »",
+    'reco.role':"Fondateur, CEO &amp; CTO, Tradrly IT Solutions",
+    'reco.btn':"Lire la lettre complète (PDF)",
     'skills.title':"Compétences",
     'proj.title':"Projets", 'proj.more':"Autres projets",
     'contact.lead':"Un projet, une question sur l'IA, ou simplement envie de parler modèles et données ? Ma boîte mail est ouverte.",
