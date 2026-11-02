@@ -164,6 +164,17 @@ img{display:block;max-width:100%}
 @media (hover:hover){.reco-card:hover{border-color:#1F5BFF;box-shadow:0 0 0 1px rgba(118,33,176,.6),0 20px 60px rgba(31,91,255,.18)}}
 @media (max-width:760px){.reco{padding:90px 20px 0}.reco-card{margin-top:56px;border-radius:28px;padding:26px}.reco-card::before{left:22px;font-size:5.5rem}}
 
+/* CERTIFICATIONS */
+.certs{padding:120px 40px 0}
+.cgrid{max-width:1150px;margin:110px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px}
+.ccard{display:flex;flex-direction:column;gap:8px;border:1px solid var(--line);border-radius:32px;padding:18px 18px 24px;color:inherit;text-decoration:none;transition:border-color .4s,box-shadow .4s}
+.ccard img{width:100%;height:auto;aspect-ratio:1.42/1;object-fit:contain;background:#fff;border-radius:18px;margin-bottom:10px}
+.ccard h3{font-weight:500;text-transform:uppercase;font-size:1.05rem;line-height:1.25;padding:0 6px}
+.ccard p{font-weight:300;opacity:.6;padding:0 6px}
+.ccard .cmeta{font-size:.85rem;font-weight:300;opacity:.6;padding:0 6px}
+@media (hover:hover){.ccard:hover{border-color:#1F5BFF;box-shadow:0 0 0 1px rgba(118,33,176,.6),0 20px 60px rgba(31,91,255,.18)}}
+@media (max-width:760px){.certs{padding:90px 20px 0}.cgrid{margin-top:56px;gap:20px}.ccard{border-radius:24px}}
+
 /* PROJECTS */
 .projects{padding:120px 40px}
 .plist{max-width:1150px;margin:110px auto 0}
@@ -504,6 +515,49 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
   </figure>
 </section>
 
+<!-- ============ CERTIFICATIONS ============ -->
+<section class="certs" id="certifications">
+  <h2 class="big-title grad fade" style="--y:40px" data-i18n="cert.title">Certifications</h2>
+  <div class="cgrid">
+    <a class="ccard fade" href="assets/certs/databricks-genai.png" target="_blank" rel="noopener" data-gc="cert-databricks">
+      <img src="assets/certs/databricks-genai.png" width="1008" height="709" alt="Certificate: Get Started with Databricks for Generative AI" loading="lazy" decoding="async">
+      <h3 data-i18n="cert1.h">Get Started with Databricks for Generative AI</h3>
+      <p>Databricks · Simplilearn SkillUp</p>
+      <span class="cmeta" data-i18n="cert1.meta">Oct 2026 · Code 10970083</span>
+    </a>
+    <a class="ccard fade" style="--d:.1s" href="assets/certs/ml-python.png" target="_blank" rel="noopener" data-gc="cert-ml-python">
+      <img src="assets/certs/ml-python.png" width="1011" height="712" alt="Certificate: Machine Learning Using Python" loading="lazy" decoding="async">
+      <h3 data-i18n="cert2.h">Machine Learning Using Python</h3>
+      <p>Simplilearn SkillUp</p>
+      <span class="cmeta" data-i18n="cert2.meta">Oct 2026 · Code 10971628</span>
+    </a>
+    <a class="ccard fade" style="--d:.2s" href="assets/certs/excel-dashboard.png" target="_blank" rel="noopener" data-gc="cert-excel">
+      <img src="assets/certs/excel-dashboard.png" width="1009" height="709" alt="Certificate: Excel Dashboard for Beginners" loading="lazy" decoding="async">
+      <h3 data-i18n="cert3.h">Excel Dashboard for Beginners</h3>
+      <p>Microsoft · Simplilearn SkillUp</p>
+      <span class="cmeta" data-i18n="cert3.meta">Oct 2026 · Code 10969821</span>
+    </a>
+    <a class="ccard fade" href="assets/certs/udemy-ai-masterclass.png" target="_blank" rel="noopener" data-gc="cert-ai-masterclass">
+      <img src="assets/certs/udemy-ai-masterclass.png" width="1280" height="952" alt="Certificate: Artificial Intelligence Masterclass + ChatGPT Prize [2026]" loading="lazy" decoding="async">
+      <h3>Artificial Intelligence Masterclass + ChatGPT Prize</h3>
+      <p>Udemy · SuperDataScience</p>
+      <span class="cmeta" data-i18n="cert4.meta">Apr 2026 · 12 hours</span>
+    </a>
+    <a class="ccard fade" style="--d:.1s" href="assets/certs/udemy-python-sql.png" target="_blank" rel="noopener" data-gc="cert-python-sql">
+      <img src="assets/certs/udemy-python-sql.png" width="1288" height="958" alt="Certificate: Python et SQL pour les (grands) débutants" loading="lazy" decoding="async">
+      <h3 data-i18n="cert5.h">Python &amp; SQL for beginners</h3>
+      <p>Udemy · ELOA Formation</p>
+      <span class="cmeta" data-i18n="cert5.meta">Feb 2026 · 11 hours</span>
+    </a>
+    <a class="ccard fade" style="--d:.2s" href="assets/certs/stc-python.png" target="_blank" rel="noopener" data-gc="cert-stc-python">
+      <img src="assets/certs/stc-python.png" width="1286" height="909" alt="Certificate: Langage de programmation Python, Spectrum Training Center" loading="lazy" decoding="async">
+      <h3 data-i18n="cert6.h">Python programming language</h3>
+      <p>Spectrum Training Center, Tunis</p>
+      <span class="cmeta" data-i18n="cert6.meta">Sep 2022 · 3 days</span>
+    </a>
+  </div>
+</section>
+
 <!-- ============ SKILLS ============ -->
 <section class="skills" id="skills">
   <h2 class="big-title grad fade" style="--y:40px" data-i18n="skills.title">Skills</h2>
@@ -620,6 +674,13 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
     'reco.quote':"« Je recommande Fedi Limem fortement et sans réserve pour tout poste en data science, machine learning ou IA. »",
     'reco.role':"Fondateur, CEO &amp; CTO, Tradrly IT Solutions",
     'reco.btn':"Lire la lettre complète (PDF)",
+    'cert.title':"Certifications",
+    'cert1.h':"Bien démarrer avec Databricks pour l'IA générative", 'cert1.meta':"Oct. 2026 · Code 10970083",
+    'cert2.h':"Machine Learning avec Python", 'cert2.meta':"Oct. 2026 · Code 10971628",
+    'cert3.h':"Tableaux de bord Excel pour débutants", 'cert3.meta':"Oct. 2026 · Code 10969821",
+    'cert4.meta':"Avr. 2026 · 12 heures",
+    'cert5.h':"Python et SQL pour les (grands) débutants", 'cert5.meta':"Févr. 2026 · 11 heures",
+    'cert6.h':"Langage de programmation Python", 'cert6.meta':"Sept. 2022 · 3 jours",
     'skills.title':"Compétences",
     'proj.title':"Projets", 'proj.more':"Autres projets",
     'contact.lead':"Un projet, une question sur l'IA, ou simplement envie de parler modèles et données ? Ma boîte mail est ouverte.",
