@@ -6,7 +6,7 @@ Contact : fedilimem7@gmail.com · linkedin.com/in/fedi-limem-8808a8279 · github
 
 ## Points forts (d'après ses projets)
 - IA fiable : ses assistants citent leurs sources et disent quand l'information manque (DocBot, LMAgent).
-- Bout en bout : des données à l'outil déployé (DocBot sur Railway, FediDraw dans le navigateur, chatbot Gradio livré chez Talan).
+- Bout en bout : des données à l'outil utilisable (FediDraw qui tourne dans le navigateur, DocBot complet avec son espace admin, chatbot Gradio livré chez Talan).
 - Évaluation honnête et chiffrée : séparation réglage/test (FediSonar), 92,8 % (FediDraw), 81 % (PrediT'Kick).
 - Profil large : LLM/RAG, deep learning et vision, ML classique, optimisation sous contraintes, DevOps, IoT.
 - Recommandation de Salah Sammari (Fondateur, CEO & CTO, Tradrly IT Solutions) : « Je recommande Fedi Limem fortement et sans réserve pour tout poste en data science, machine learning ou IA. »
@@ -19,7 +19,7 @@ Contact : fedilimem7@gmail.com · linkedin.com/in/fedi-limem-8808a8279 · github
 Ingénieur IA & Data Science, ITEAM University, Tunis (2025–2027) · 1re année cycle ingénieur, génie informatique, ESPRIT Monastir (2024–2025) · Licence systèmes informatiques, IoT & embarqué, ISI Mahdia (2024) · Bac sciences expérimentales (2021).
 
 ## Projets
-- DocBot : assistant RAG pour PME ; répond à partir des documents de l'entreprise, renvoie au passage exact et dit quand l'info n'existe pas ; espace admin (documents, historique). Next.js, Prisma, PostgreSQL, déployé sur Railway. github.com/fedifedifedi/docbot
+- DocBot : assistant RAG pour PME ; répond à partir des documents de l'entreprise, renvoie au passage exact et dit quand l'info n'existe pas ; espace admin (documents, historique). Next.js, Prisma, PostgreSQL. Vidéo de démo disponible ; code sur github.com/fedifedifedi/docbot.
 - FediDraw : reconnaît un dessin pendant qu'on le trace ; CNN PyTorch entraîné sur 300 000 dessins Quick Draw, 92,8 % de précision sur 30 catégories (98 % top 5), modèle ONNX de 1,5 Mo dans le navigateur sans serveur, Lighthouse 100. PyTorch, ONNX, TypeScript, Vite.
 - LMAgent : agent qui rédige une lettre de motivation par offre à partir d'un CV (PDF ou photo) ; chaque phrase cite sa source dans le profil, puis critique, réécriture et export PDF. Next.js, TypeScript, Gemini, Zod, Prisma, libSQL.
 - FediSonar : détecte, suit et compte les poissons en vidéo sonar ; évalué sur 69 clips réels du Caltech Fish Counting Dataset avec séparation stricte réglage/test, erreur de comptage réduite de 64,7 % à 29,7 % sur des clips jamais vus. Python, OpenCV.
