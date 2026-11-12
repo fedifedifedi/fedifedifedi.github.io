@@ -1,0 +1,10 @@
+# Notes privées (hors site publié)
+notes/
+
+# Secrets du Worker Cloudflare : jamais dans git
+worker/.dev.vars
+worker/.env*
+.env
+*.secret
+worker/.wrangler/
+worker/node_modules/
