@@ -42,6 +42,13 @@ et le widget affiche un message dédié avec l'e-mail de Fedi.
 - Après le déploiement, pour voir la limite : lancer `test-questions.ps1` deux fois de suite sur l'URL
   déployée (16 questions en moins d'une minute) ; les dernières doivent afficher « Limite atteinte (429) ».
 
+**Limite de Groq.** Le plan gratuit de `gpt-oss-120b` accepte environ 8 000 tokens par minute
+(et 1 000 requêtes par jour), et chaque question envoie toute la base (~1 500 tokens) avec les
+instructions. Des questions rapprochées peuvent donc être refusées par Groq (`429`). Le Worker attend
+et réessaie une fois si Groq demande 3 s ou moins. Sinon, il renvoie `429` au widget, qui affiche
+« réessayez dans une minute ». `npx wrangler tail` montre alors `Groq 429` avec les tokens restants.
+`test-questions.ps1` attend 10 s entre deux questions (`-Pause 0` pour provoquer la limite exprès).
+
 `workers.dev` fait aussi passer chaque requête par le Browser Integrity Check de Cloudflare, qui ne peut
 pas être désactivé et peut bloquer les outils qui s'annoncent comme des scripts (erreur 1010). Les
 navigateurs ne sont pas concernés ; `test-questions.ps1` envoie donc un identifiant de navigateur.

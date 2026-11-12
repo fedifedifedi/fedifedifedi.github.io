@@ -70,6 +70,22 @@ function json(data, status, origin, extraHeaders = {}){
   });
 }
 
+const MAX_SILENT_WAIT = 3;   // seconds the Worker may wait for Groq before retrying once
+
+// Groq sends retry-after (seconds) on a 429; default to a short wait if it is missing or unreadable
+function retryAfterSeconds(res){
+  const s = parseFloat(res.headers.get('retry-after'));
+  return Number.isFinite(s) && s >= 0 ? s : 2;
+}
+
+// What `npx wrangler tail` shows: Groq status and its token counters (never the API key)
+function logGroq(label, res, detail = ''){
+  const h = k => res.headers.get(k);
+  console.error(label, res.status, 'retry-after=' + h('retry-after'),
+    'tokens remaining=' + h('x-ratelimit-remaining-tokens') + '/' + h('x-ratelimit-limit-tokens'),
+    'reset=' + h('x-ratelimit-reset-tokens'), detail);
+}
+
 /* ~10 questions per minute per IP (RATE_LIMITER binding, wrangler.toml). Approximate by design:
    counts are per Cloudflare location. Without the binding, or if it fails, the request goes through. */
 async function overLimit(request, env){
@@ -126,7 +142,7 @@ export default {
     try {
       const kb = await getKnowledge(env);
       const system = SYSTEM_PROMPT.replace('{LANG}', lang).replace('{KB}', kb);
-      const res = await fetch(GROQ_URL, {
+      const callGroq = () => fetch(GROQ_URL, {
         method: 'POST',
         headers: {'Authorization': `Bearer ${env.GROQ_API_KEY}`, 'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -141,8 +157,23 @@ export default {
           temperature: 0.3,
         }),
       });
+      let res = await callGroq();
+      // Groq free plan: ~8,000 tokens per minute, and every question carries the whole knowledge base.
+      // When Groq asks for a short wait, wait once and retry; otherwise pass the 429 on to the widget.
+      if (res.status === 429) {
+        const wait = retryAfterSeconds(res);
+        logGroq('Groq 429', res);
+        if (wait <= MAX_SILENT_WAIT) {
+          await new Promise(r => setTimeout(r, wait * 1000));
+          res = await callGroq();
+        }
+        if (res.status === 429) {
+          if (wait <= MAX_SILENT_WAIT) logGroq('Groq 429 (after retry)', res);
+          return json({error: 'rate limited'}, 429, origin, {'Retry-After': String(Math.max(1, Math.ceil(retryAfterSeconds(res))))});
+        }
+      }
       if (!res.ok) {
-        console.error('Groq error', res.status, (await res.text()).slice(0, 300));
+        logGroq('Groq error', res, (await res.text()).slice(0, 300));
         return json({error: 'upstream error'}, 502, origin);
       }
       const data = await res.json();
