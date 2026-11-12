@@ -25,7 +25,7 @@ Ingénieur IA & Data Science, ITEAM University, Tunis (2025–2027) · 1re anné
 - FediSonar : détecte, suit et compte les poissons en vidéo sonar ; évalué sur 69 clips réels du Caltech Fish Counting Dataset avec séparation stricte réglage/test, erreur de comptage réduite de 64,7 % à 29,7 % sur des clips jamais vus. Python, OpenCV.
 - Fedi's Planner : emplois du temps scolaires sans conflit avec CP-SAT ; replanification minimale en cas d'absence, explique les contraintes contradictoires ; modèle réduit d'un facteur 14, scores 3 à 6× meilleurs qu'un glouton. Python, OR-Tools, FastAPI, Next.js, pytest.
 - PrediT'Kick (ITEAM, avec Oussama Jbeli) : analyse football sur 9 048 joueurs FIFA 23, 245 équipes, 58 892 matchs ; 81 % de précision sur les postes. Python, Random Forest, XGBoost.
-- TaskApp : gestionnaire de tâches full-stack (statuts, échéances, filtres, tableau de bord). Express, React, Prisma, PostgreSQL, Zod, tests Playwright, CI, Docker, Railway.
+- TaskApp : gestionnaire de tâches full-stack (statuts, échéances, filtres, tableau de bord). Express, React, Prisma, PostgreSQL, Zod, tests Playwright, CI, Docker. Code sur github.com/fedifedifedi/taskapp.
 - KπBIOS : plateforme IA, données, IoT et génie logiciel pour transformer les données d'entreprise en décisions.
 - Assistant de révision : PDF de cours transformés en réponses sourcées, fiches et quiz, avec répétition espacée.
 - Smart Water Management (IoT) : suivi de la consommation d'eau, détection d'usages anormaux, alertes temps réel.
