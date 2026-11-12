@@ -1,9 +1,22 @@
 /* Ask Fedi: floating AI assistant. Reuses the site tokens (--bg, --light, --line, --grad-btn, --font). */
-.af-launch{position:fixed;right:20px;bottom:20px;z-index:160;display:flex;align-items:center;gap:10px;padding:12px 20px 12px 14px;border:0;border-radius:999px;background:var(--grad-btn);color:var(--white);font:500 .95rem/1 var(--font);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(31,91,255,.35);outline:2px solid #fff;outline-offset:-3px;transition:opacity .3s,transform .3s,visibility .3s}
-.af-launch svg{width:22px;height:22px;flex-shrink:0}
+/* Launcher: visible from the start, one soft entrance (fill-mode backwards: hover still works afterwards) */
+.af-launch{position:fixed;right:20px;bottom:20px;z-index:160;display:flex;align-items:center;gap:8px;padding:12px 20px 12px 14px;border:0;border-radius:999px;background:var(--grad-btn);color:var(--white);font:500 .95rem/1 var(--font);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(31,91,255,.35);outline:2px solid #fff;outline-offset:-3px;transition:transform .3s;animation:afIn .6s cubic-bezier(.2,.8,.2,1) .5s backwards}
+.af-launch .af-emoji{font-size:1.25rem;line-height:1;text-transform:none}
 .af-launch:hover{transform:translateY(-2px)}
-.af-launch[data-hidden]{opacity:0;transform:translateY(20px);visibility:hidden}
 .af-launch:focus-visible{outline:2px solid var(--light);outline-offset:4px}
+@keyframes afIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* Invitation bubble, left of the launcher (position set in JS), arrow pointing to the launcher */
+.af-hint{position:fixed;z-index:160;box-sizing:border-box;display:flex;align-items:center;gap:4px;padding:6px 6px 6px 4px;border:1px solid var(--line);border-radius:18px;background:#141414;color:var(--light);box-shadow:0 12px 30px rgba(0,0,0,.45);animation:afHint .35s ease-out}
+.af-hint[hidden]{display:none}
+.af-hint::after{content:"";position:absolute;right:-6px;top:50%;width:10px;height:10px;margin-top:-5px;background:#141414;border:1px solid var(--line);border-left:0;border-bottom:0;transform:rotate(45deg)}
+.af-hint-open{flex:1;min-width:0;border:0;background:transparent;color:inherit;font:400 .88rem/1.35 var(--font);text-align:left;padding:6px 8px;border-radius:12px;cursor:pointer}
+.af-hint-open:hover{background:rgba(215,226,234,.08)}
+.af-hint-x{flex-shrink:0;width:28px;height:28px;display:grid;place-items:center;border:0;border-radius:50%;background:transparent;color:var(--light);opacity:.7;cursor:pointer}
+.af-hint-x:hover{opacity:1;background:rgba(215,226,234,.1)}
+.af-hint-x svg{width:14px;height:14px}
+.af-hint :focus-visible{outline:2px solid var(--light);outline-offset:2px}
+@keyframes afHint{from{opacity:0;transform:translateX(8px)}to{opacity:1;transform:none}}
 
 .af-panel{position:fixed;right:20px;bottom:20px;z-index:170;width:min(400px,calc(100vw - 40px));height:min(620px,calc(100vh - 110px));display:flex;flex-direction:column;background:var(--bg);color:var(--light);font-family:var(--font);border:1px solid var(--line);border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(118,33,176,.35);overflow:hidden}
 .af-panel[hidden]{display:none}
@@ -45,9 +58,10 @@
 
 @media (max-width:640px){
   .af-launch{right:12px;bottom:12px;padding:11px 16px 11px 12px;font-size:.85rem}
+  .af-hint-open{font-size:.82rem}
   .af-panel{right:0;left:0;bottom:0;width:100%;height:min(88vh,100%);height:min(88dvh,100%);border-radius:24px 24px 0 0;border-bottom:0}
 }
 @media (prefers-reduced-motion:reduce){
-  .af-launch,.af-dots i{transition:none;animation:none}
+  .af-launch,.af-hint,.af-dots i{transition:none;animation:none}
   .af-dots i{opacity:.7}
 }

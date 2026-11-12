@@ -16,7 +16,8 @@
 
   const T = {
     en:{
-      launch:'Ask Fedi', title:'Ask Fedi',
+      launch:'Ask Fedi', launchLabel:"Open Ask Fedi, Fedi's AI assistant", title:'Ask Fedi',
+      hint:'👋 Questions about Fedi? Ask his AI', hintClose:'Close this message',
       sub:"An AI assistant that answers from Fedi's portfolio only.",
       hello:"Hi! Ask me about Fedi's profile, strengths, experience or projects.",
       placeholder:'Ask a question about Fedi…', send:'Send', close:'Close the assistant',
@@ -26,7 +27,8 @@
       sugg:['What are his strengths?','Tell me about DocBot','What did he do at Talan?','Which AI skills does he have?'],
     },
     fr:{
-      launch:'Demander à Fedi', title:'Ask Fedi',
+      launch:'Ask Fedi', launchLabel:"Ouvrir Ask Fedi, l'assistant IA de Fedi", title:'Ask Fedi',
+      hint:'👋 Une question sur Fedi ? Demandez à son IA', hintClose:'Fermer ce message',
       sub:'Un assistant IA qui répond uniquement à partir du portfolio de Fedi.',
       hello:"Bonjour ! Posez-moi vos questions sur le profil, les points forts, l'expérience ou les projets de Fedi.",
       placeholder:'Posez une question sur Fedi…', send:'Envoyer', close:"Fermer l'assistant",
@@ -40,7 +42,6 @@
   let lang = langNow();
   const t = k => T[lang][k];
 
-  const ICON_CHAT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.3 7.6L3.5 21l1.4-4.7A8.5 8.5 0 1 1 21 12z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/></svg>';
   const ICON_CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
   const ICON_SEND = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
@@ -51,7 +52,13 @@
   launch.setAttribute('aria-haspopup', 'dialog');
   launch.setAttribute('aria-expanded', 'false');
   launch.dataset.gc = 'ask-fedi-open';
-  launch.innerHTML = ICON_CHAT + '<span></span>';
+  launch.innerHTML = '<span class="af-emoji" aria-hidden="true">🤖</span><span class="af-label"></span>';
+
+  // Invitation shown once per session next to the launcher (left of it, so it never covers the hero buttons)
+  const hint = document.createElement('div');
+  hint.className = 'af-hint';
+  hint.hidden = true;
+  hint.innerHTML = `<button type="button" class="af-hint-open"></button><button type="button" class="af-hint-x">${ICON_CLOSE}</button>`;
 
   const panel = document.createElement('section');
   panel.className = 'af-panel';
@@ -70,7 +77,7 @@
       <button type="submit" class="af-send">${ICON_SEND}</button>
     </form>
     <p class="af-note"></p>`;
-  document.body.append(launch, panel);
+  document.body.append(hint, launch, panel);
 
   const $ = s => panel.querySelector(s);
   const log = $('.af-log'), sugg = $('.af-sugg'), form = $('.af-form'), input = $('textarea'), send = $('.af-send'), closeBtn = $('.af-close');
@@ -81,8 +88,11 @@
 
   /* ---------- Texts in the active language ---------- */
   function applyTexts(){
-    launch.querySelector('span').textContent = t('launch');
-    launch.setAttribute('aria-label', t('launch'));
+    launch.querySelector('.af-label').textContent = t('launch');
+    launch.setAttribute('aria-label', t('launchLabel'));
+    hint.querySelector('.af-hint-open').textContent = t('hint');
+    hint.querySelector('.af-hint-x').setAttribute('aria-label', t('hintClose'));
+    if (!hint.hidden) placeHint();
     $('#afTitle').textContent = t('title');
     $('.af-sub').textContent = t('sub');
     input.placeholder = t('placeholder');
@@ -169,8 +179,37 @@
     }
   }
 
+  /* ---------- Invitation bubble: once per session, never after the chat was opened ---------- */
+  const HINT_KEY = 'askFediHintDone';
+  const hintDone = () => { try { return sessionStorage.getItem(HINT_KEY) === '1'; } catch(e){ return false; } };
+  function dismissHint(){
+    clearTimeout(hintTimer);
+    hint.hidden = true;
+    try { sessionStorage.setItem(HINT_KEY, '1'); } catch(e){}
+  }
+  // Same line as the launcher, just to its left: the hero keeps that strip free (see .hero-bottom padding)
+  function placeHint(){
+    // clientWidth/Height, not innerWidth/Height: fixed elements are placed inside the scrollbar
+    const r = launch.getBoundingClientRect(), vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
+    hint.style.right = (vw - r.left + 10) + 'px';
+    hint.style.bottom = (vh - r.bottom) + 'px';
+    hint.style.maxWidth = Math.max(160, r.left - 10 - 12) + 'px';   // keep a 12px margin on the left edge
+  }
+  let hintTimer = 0;
+  if (!hintDone()) hintTimer = setTimeout(() => {
+    if (hintDone() || !panel.hidden) return;
+    hint.hidden = false;
+    placeHint();
+  }, 4000);
+  addEventListener('resize', () => { if (!hint.hidden) placeHint(); });
+  hint.querySelector('.af-hint-open').addEventListener('click', () => open(launch));
+  hint.querySelector('.af-hint-x').addEventListener('click', () => { dismissHint(); launch.focus(); });
+
   /* ---------- Open / close ---------- */
-  function open(){
+  let opener = launch;   // focus goes back to what opened the chat
+  function open(from){
+    opener = from instanceof HTMLElement ? from : launch;
+    dismissHint();
     panel.hidden = false;
     launch.hidden = true;
     launch.setAttribute('aria-expanded', 'true');
@@ -181,11 +220,16 @@
     panel.hidden = true;
     launch.hidden = false;
     launch.setAttribute('aria-expanded', 'false');
-    launch.focus();
+    (document.contains(opener) ? opener : launch).focus();
   }
-  launch.addEventListener('click', open);
+  launch.addEventListener('click', () => open(launch));
   closeBtn.addEventListener('click', close);
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) close(); });
+  // Any element with data-ask-fedi opens the chat (the hero button "Ask my AI assistant")
+  document.addEventListener('click', e => {
+    const b = e.target.closest && e.target.closest('[data-ask-fedi]');
+    if (b){ e.preventDefault(); open(b); }
+  });
 
   /* ---------- Input ---------- */
   function autoGrow(){ input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 120) + 'px'; }
@@ -195,15 +239,6 @@
     if (e.key === 'Enter' && !e.shiftKey && !e.isComposing){ e.preventDefault(); form.requestSubmit(); }
   });
   form.addEventListener('submit', e => { e.preventDefault(); ask(input.value); });
-
-  /* ---------- Launcher appears once the visitor scrolls past the top of the hero
-     (on the hero it would sit on top of the "Contact me" button) ---------- */
-  const toggleLaunch = () => {
-    if (window.scrollY > innerHeight * 0.5) launch.removeAttribute('data-hidden');
-    else launch.setAttribute('data-hidden', '');
-  };
-  addEventListener('scroll', toggleLaunch, {passive:true});
-  toggleLaunch();
 
   applyTexts();
 })();
