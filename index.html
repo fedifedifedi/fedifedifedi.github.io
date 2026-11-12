@@ -193,6 +193,8 @@ button.btn-line{font-family:inherit;cursor:pointer}
 .plist{max-width:1150px;margin:110px auto 0}
 .pcard{border:2px solid var(--light);border-radius:60px;padding:32px;margin-bottom:40px}
 .phead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;margin-bottom:30px}
+.pbtns{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.pbtns .btn-grad{border:0;font-family:inherit;cursor:pointer;padding:14px 32px;font-size:.95rem}
 .pid{display:flex;align-items:center;gap:24px}
 .pid .n{font-weight:900;line-height:1;font-size:clamp(3rem,10vw,140px)}
 .pid .cat{text-transform:uppercase;letter-spacing:.14em;font-size:.85rem;opacity:.6;display:block}
@@ -799,6 +801,17 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
      points:['92.8% accuracy on 30 categories','1.5 MB ONNX model, runs in the browser','Game mode and explainer page'],
      pointsFr:['92,8 % de précision sur 30 catégories','Modèle ONNX de 1,5 Mo, dans le navigateur','Mode jeu et page explicative'],
      tags:['PyTorch','ONNX','TypeScript','Vite']},
+    {cat:'Personal project', catFr:'Projet personnel', name:'Ask Fedi', gc:'ask-fedi', ga:'200deg',
+     link:'https://github.com/fedifedifedi/fedifedifedi.github.io/tree/main/worker', linkLabel:'Source code', linkLabelFr:'Code source',
+     tryIt:'Try it now', tryItFr:'Essayer maintenant',   // opens the chat on this page (data-ask-fedi)
+     image:{src:'assets/projects/ask-fedi.webp', anim:'assets/projects/ask-fedi-anim.webp', play:'auto', w:960, h:585,
+            alt:'Ask Fedi answering real questions about FediSonar and Wind Consulting, then politely declining an off-topic request',
+            altFr:"Ask Fedi répond à de vraies questions sur FediSonar et Wind Consulting, puis refuse poliment une demande hors sujet"},
+     desc:"The assistant on this page: an LLM that answers questions about my profile only from a knowledge base, served through a serverless Cloudflare Worker so the API key never leaves the server.",
+     descFr:"L'assistant de cette page : un LLM qui répond aux questions sur mon profil uniquement à partir d'une base de connaissances, servi par un Worker Cloudflare serverless pour que la clé API ne quitte jamais le serveur.",
+     points:['Answers grounded in a knowledge base','Serverless Cloudflare Worker proxy','API key protected server-side'],
+     pointsFr:["Réponses ancrées dans une base de connaissances",'Proxy serverless sur Cloudflare Workers','Clé API protégée côté serveur'],
+     tags:['LLM','Groq API','Cloudflare Workers','JavaScript']},
     {cat:'Personal project', catFr:'Projet personnel', name:'LMAgent', link:'https://github.com/fedifedifedi/LMAgent', icon:'letter', ga:'123deg',
      video:{webm:'assets/projects/lmagent.webm', mp4:'assets/projects/lmagent.mp4', poster:'assets/projects/lmagent-poster.webp', w:960, h:586,
             alt:'LMAgent letter page: sources, highlighting and the three letter templates, on a demo letter for a junior data scientist position (fictional profile)',
@@ -850,30 +863,24 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
      points:['9,048 FIFA 23 players, 245 teams','58,892 real matches','81% accuracy on player positions'],
      pointsFr:['9 048 joueurs FIFA 23, 245 équipes','58 892 vrais matchs','81 % de précision sur les postes des joueurs'],
      tags:['Python','Random Forest','XGBoost']},
-    {cat:'Personal project', catFr:'Projet personnel', name:'TaskApp', link:'https://github.com/fedifedifedi/taskapp', icon:'check', ga:'60deg',
-     desc:'A full-stack task manager: sign in, create tasks, track their status and due dates, and spot overdue work at a glance, with search, filters and a dashboard.',
-     descFr:"Un gestionnaire de tâches full-stack : connexion, création de tâches, suivi du statut et des échéances, retards visibles d'un coup d'œil, avec recherche, filtres et tableau de bord.",
-     points:['Express API, Prisma, PostgreSQL','React front end, shared Zod schemas','Playwright tests, CI, Docker; code on GitHub'],
-     pointsFr:['API Express, Prisma, PostgreSQL','Front React, schémas Zod partagés','Tests Playwright, CI, Docker ; code sur GitHub'],
-     tags:['TypeScript','React','Express','Prisma','PostgreSQL']},
     {cat:'AI, data & IoT', catFr:'IA, données & IoT', name:'KπBIOS', icon:'chart', ga:'123deg',
      desc:'A platform combining AI, data analytics, IoT and software engineering to turn business data into decisions.',
      descFr:"Une plateforme qui combine IA, analyse de données, IoT et génie logiciel pour transformer les données d'entreprise en décisions.",
      points:['AI and data analytics','IoT','Business data turned into decisions'],
      pointsFr:['IA et analyse de données','IoT',"Données d'entreprise transformées en décisions"],
      tags:['AI','Data','IoT'], tagsFr:['IA','Données','IoT']},
+    {cat:'Personal project', catFr:'Projet personnel', name:'TaskApp', link:'https://github.com/fedifedifedi/taskapp', icon:'check', ga:'60deg',
+     desc:'A full-stack task manager: sign in, create tasks, track their status and due dates, and spot overdue work at a glance, with search, filters and a dashboard.',
+     descFr:"Un gestionnaire de tâches full-stack : connexion, création de tâches, suivi du statut et des échéances, retards visibles d'un coup d'œil, avec recherche, filtres et tableau de bord.",
+     points:['Express API, Prisma, PostgreSQL','React front end, shared Zod schemas','Playwright tests, CI, Docker; code on GitHub'],
+     pointsFr:['API Express, Prisma, PostgreSQL','Front React, schémas Zod partagés','Tests Playwright, CI, Docker ; code sur GitHub'],
+     tags:['TypeScript','React','Express','Prisma','PostgreSQL']},
     {cat:'Personal project', catFr:'Projet personnel', name:'Study Assistant', nameFr:'Assistant de révision', icon:'book', ga:'160deg',
      desc:'Turns course PDFs into sourced answers, flashcards and quizzes, with spaced repetition to plan reviews.',
      descFr:'Transforme des PDF de cours en réponses sourcées, fiches et quiz, avec une répétition espacée pour planifier les révisions.',
      points:['Sourced answers from PDFs','Flashcards and quizzes','Spaced repetition'],
      pointsFr:['Réponses sourcées depuis les PDF','Fiches et quiz','Répétition espacée'],
      tags:['RAG','Web app'], tagsFr:['RAG','Application web']},
-    {cat:'Personal project', catFr:'Projet personnel', name:'Ask Fedi', link:'https://github.com/fedifedifedi/fedifedifedi.github.io/tree/main/worker', icon:'chat', ga:'200deg',
-     desc:"The assistant on this page: an LLM that answers questions about my profile only from a knowledge base, served through a serverless Cloudflare Worker so the API key never leaves the server.",
-     descFr:"L'assistant de cette page : un LLM qui répond aux questions sur mon profil uniquement à partir d'une base de connaissances, servi par un Worker Cloudflare serverless pour que la clé API ne quitte jamais le serveur.",
-     points:['Answers grounded in a knowledge base','Serverless Cloudflare Worker proxy','API key protected server-side'],
-     pointsFr:["Réponses ancrées dans une base de connaissances",'Proxy serverless sur Cloudflare Workers','Clé API protégée côté serveur'],
-     tags:['LLM','Groq API','Cloudflare Workers','JavaScript']},
   ];
   const MORE = [
     {cat:'IoT & embedded', catFr:'IoT & embarqué', name:'Smart Water Management',
@@ -951,7 +958,7 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
             <span class="n">${String(i+1).padStart(2,'0')}</span>
             <div><span class="cat">${L(p,'cat')}</span><span class="name">${L(p,'name')}</span></div>
           </div>
-          ${p.link?`<a class="btn-line" href="${p.link}" target="_blank" rel="noopener" data-gc="project-${p.gc||slug(p.name)}">${p.linkLabel?L(p,'linkLabel'):view}</a>`:''}
+          <div class="pbtns">${p.tryIt?`<button class="btn-grad" type="button" data-ask-fedi data-gc="project-${p.gc}-try">${L(p,'tryIt')}</button>`:''}${p.link?`<a class="btn-line" href="${p.link}" target="_blank" rel="noopener" data-gc="project-${p.gc||slug(p.name)}">${p.linkLabel?L(p,'linkLabel'):view}</a>`:''}</div>
         </div>
         <div class="panel${p.video||p.image||p.confidential?' media':''}">
           <div class="l"><p>${L(p,'desc')}</p><div class="tags">${L(p,'tags').map(t=>`<span>${t}</span>`).join('')}</div></div>
