@@ -2,9 +2,11 @@
 notes/
 
 # Secrets du Worker Cloudflare : jamais dans git
-worker/.dev.vars
-worker/.env*
+# (.dev.vars, .dev.vars.<env>, .env, .env.<env>, où qu'ils soient ; seul l'exemple est suivi)
+.dev.vars*
+!.dev.vars.example
 .env
+.env.*
 *.secret
-worker/.wrangler/
-worker/node_modules/
+.wrangler/
+node_modules/
