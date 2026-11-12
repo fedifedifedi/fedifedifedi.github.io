@@ -8,6 +8,8 @@ preview_urls = false
 [vars]
 MODEL = "openai/gpt-oss-120b"
 KB_URL = "https://fedifedifedi.github.io/assets/fedi-knowledge.md"
+# Change this value (then `npx wrangler deploy`) after each knowledge base push: the Worker reads it at once
+KB_VERSION = "1"
 
 # About 10 questions per minute per visitor IP (approximate, counted per Cloudflare location).
 # Needs wrangler 4.36+. If the binding is unavailable, the Worker still answers, without this limit.

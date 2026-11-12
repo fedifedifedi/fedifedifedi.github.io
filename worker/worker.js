@@ -31,17 +31,25 @@ Knowledge base:
 {KB}
 """`;
 
-let kbCache = {text: '', at: 0};
+let kbCache = {text: '', at: 0, url: ''};
+
+// KB_VERSION (wrangler.toml) is added to the URL: changing it gives a new address, so both caches
+// (this Worker's memory and Cloudflare's edge) fetch the new knowledge base at once.
+function knowledgeUrl(env){
+  if (!env.KB_VERSION) return env.KB_URL;
+  return env.KB_URL + (env.KB_URL.includes('?') ? '&' : '?') + 'v=' + encodeURIComponent(env.KB_VERSION);
+}
 
 async function getKnowledge(env){
-  if (kbCache.text && Date.now() - kbCache.at < KB_TTL) return kbCache.text;
+  const url = knowledgeUrl(env);
+  if (kbCache.text && kbCache.url === url && Date.now() - kbCache.at < KB_TTL) return kbCache.text;
   // cf.cacheTtl also caches the file at Cloudflare's edge, shared between Worker instances
-  const res = await fetch(env.KB_URL, {cf: {cacheTtl: 3600, cacheEverything: true}});
+  const res = await fetch(url, {cf: {cacheTtl: 3600, cacheEverything: true}});
   if (!res.ok) {
     if (kbCache.text) return kbCache.text;   // keep serving the last good copy
     throw new Error('knowledge base unavailable');
   }
-  kbCache = {text: (await res.text()).trim(), at: Date.now()};
+  kbCache = {text: (await res.text()).trim(), at: Date.now(), url};
   return kbCache.text;
 }
 
