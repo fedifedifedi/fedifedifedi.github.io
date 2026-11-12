@@ -8,7 +8,7 @@
   // On localhost (Live Server) the widget talks to `npx wrangler dev` instead.
   const API_URL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname)
     ? 'http://localhost:8787'
-    : 'https://ask-fedi.YOUR-SUBDOMAIN.workers.dev';
+    : 'https://ask-fedi.fedilimem.workers.dev';
 
   const EMAIL = 'fedilimem7@gmail.com';
   const MAX_CHARS = 600;     // same limit as the Worker

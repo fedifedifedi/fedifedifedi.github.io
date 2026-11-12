@@ -1,6 +1,8 @@
 name = "ask-fedi"
 main = "worker.js"
 compatibility_date = "2025-06-01"
+workers_dev = true
+preview_urls = false
 
 # Public settings. The API key is NOT here: `npx wrangler secret put GROQ_API_KEY`
 [vars]
