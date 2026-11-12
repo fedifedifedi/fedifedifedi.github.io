@@ -342,20 +342,24 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
 .vc-wrap.live .vc-tilt{transition:transform .12s linear}
 .vcard{position:relative;aspect-ratio:1.72;container-type:inline-size;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.2,.8,.2,1)}
 .vcard.flipped{transform:rotateY(180deg)}
-.vc-face{position:absolute;inset:0;border-radius:4.4cqw;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;color:#2b2415;
-  background:linear-gradient(128deg,#efdfae 0%,#dcc183 34%,#cfb070 58%,#e2c98e 80%,#d4b679 100%);
-  box-shadow:0 1px 0 rgba(255,255,255,.55) inset,0 40px 80px -24px rgba(0,0,0,.75),0 18px 40px -18px rgba(200,160,80,.35)}
-.vc-face::before{content:"";position:absolute;left:0;right:0;top:0;height:1.2cqw;background:linear-gradient(90deg,#ffd36e,#a8f0a0,#7fd8ff,#c7a2ff,#ff9fd2);opacity:.95}
-.vc-face::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(60cqw circle at var(--sx,30%) var(--sy,20%),rgba(255,255,255,.38),transparent 55%);mix-blend-mode:soft-light}
+/* Card in the site palette: night background with the blue/violet/teal glows of --grad-btn, light text */
+.vc-face{position:absolute;inset:0;border-radius:4.4cqw;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;color:var(--light);
+  background:radial-gradient(75cqw 55cqw at 0% 0%,rgba(31,91,255,.55),transparent 62%),
+    radial-gradient(70cqw 60cqw at 100% 100%,rgba(118,33,176,.6),transparent 62%),
+    radial-gradient(45cqw 35cqw at 100% 0%,rgba(0,166,166,.22),transparent 70%),
+    linear-gradient(135deg,#0a1230 0%,#0c0c14 52%,#150a26 100%);
+  box-shadow:0 0 0 1px rgba(215,226,234,.16) inset,0 1px 0 rgba(255,255,255,.18) inset,0 40px 80px -24px rgba(0,0,0,.8),0 18px 50px -18px rgba(31,91,255,.45)}
+.vc-face::before{content:"";position:absolute;left:0;right:0;top:0;height:1.2cqw;background:var(--grad-btn)}
+.vc-face::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(60cqw circle at var(--sx,30%) var(--sy,20%),rgba(120,150,255,.13),transparent 55%);mix-blend-mode:screen}
 .vc-wave{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .vc-back{transform:rotateY(180deg)}
 .vc-front{display:grid;grid-template-columns:1fr 31cqw;padding:6.4cqw 5.4cqw 5cqw 5.4cqw;gap:0 4cqw}
 .vc-left{position:relative;display:flex;flex-direction:column;min-width:0}
 .vc-id{display:flex;align-items:center;gap:3cqw}
-.vc-id img{width:12.5cqw;height:12.5cqw;border-radius:50%;object-fit:cover;box-shadow:0 0 0 .5cqw rgba(255,255,255,.55),0 1.2cqw 2.4cqw rgba(60,40,10,.25)}
-.vc-name{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:6cqw;line-height:1;letter-spacing:-.01em;margin:0}
+.vc-id img{width:12.5cqw;height:12.5cqw;border-radius:50%;object-fit:cover;box-shadow:0 0 0 .45cqw #fff,0 0 0 1cqw rgba(31,91,255,.55),0 1.2cqw 3cqw rgba(118,33,176,.45)}
+.vc-name{font-family:"Kanit",sans-serif;font-weight:700;font-size:6cqw;line-height:1;letter-spacing:-.01em;margin:0;color:var(--white)}
 .vc-role{font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:600;font-size:2.15cqw;letter-spacing:.22em;text-transform:uppercase;margin-top:1.4cqw;opacity:.75}
-.vc-tag{font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:500;font-size:3.3cqw;line-height:1.25;margin-top:6cqw;max-width:30ch}
+.vc-tag{font-family:"Kanit",sans-serif;font-weight:300;font-size:3.3cqw;line-height:1.3;margin-top:6cqw;max-width:30ch}
 .vc-lines{margin-top:auto;display:flex;flex-direction:column;gap:2.4cqw}
 .vc-line{display:flex;align-items:center;justify-content:space-between;gap:2cqw;color:inherit;text-decoration:none}
 .vc-line[hidden]{display:none}
@@ -364,34 +368,34 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
 .vc-ico{flex-shrink:0;width:3.6cqw;height:3.6cqw;display:grid;place-items:center;border:0;background:none;color:inherit;cursor:pointer;opacity:.7;padding:0;transition:opacity .2s,transform .2s}
 .vc-ico:hover{opacity:1;transform:scale(1.12)}
 .vc-ico svg{width:100%;height:100%}
-.vc-right{position:relative;display:flex;flex-direction:column;align-items:center;border-left:.25cqw solid rgba(43,36,21,.22);padding-left:4cqw;margin-left:-0cqw}
-/* QR above the gold light (z-index), white quiet zone inside the SVG, click to enlarge */
-.vc-qr{position:relative;z-index:2;width:25cqw;aspect-ratio:1;padding:.8cqw;border:0;background:#fff;border-radius:2.2cqw;box-shadow:0 1cqw 2.4cqw rgba(60,40,10,.22);cursor:zoom-in}
+.vc-right{position:relative;display:flex;flex-direction:column;align-items:center;border-left:.25cqw solid rgba(215,226,234,.18);padding-left:4cqw;margin-left:-0cqw}
+/* QR stays white for scanners, above the light reflection (z-index), click to enlarge */
+.vc-qr{position:relative;z-index:2;width:25cqw;aspect-ratio:1;padding:.8cqw;border:0;background:#fff;border-radius:2.2cqw;box-shadow:0 1cqw 3cqw rgba(31,91,255,.35);cursor:zoom-in}
 .vc-qr img{width:100%;height:100%;display:block;image-rendering:pixelated}
 .vc-face::after{z-index:1}
 .vc-qrbox{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:rgba(6,6,8,.82);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .25s}
 .vc-qrbox.on{opacity:1;pointer-events:auto}
 .vc-qrbox div{background:#fff;border-radius:22px;padding:18px;width:min(380px,82vw);box-shadow:0 30px 80px rgba(0,0,0,.6)}
 .vc-qrbox img{width:100%;display:block;image-rendering:pixelated}
-.vc-qrbox p{margin:14px 0 0;text-align:center;color:#2b2415;font-weight:500}
+.vc-qrbox p{margin:14px 0 0;text-align:center;color:var(--bg);font-weight:500}
 .vc-qr::before{content:"";position:absolute;inset:-1.6cqw;pointer-events:none;
-  background:linear-gradient(#2b2415,#2b2415) top left/3.2cqw .45cqw,linear-gradient(#2b2415,#2b2415) top left/.45cqw 3.2cqw,
-  linear-gradient(#2b2415,#2b2415) top right/3.2cqw .45cqw,linear-gradient(#2b2415,#2b2415) top right/.45cqw 3.2cqw,
-  linear-gradient(#2b2415,#2b2415) bottom left/3.2cqw .45cqw,linear-gradient(#2b2415,#2b2415) bottom left/.45cqw 3.2cqw,
-  linear-gradient(#2b2415,#2b2415) bottom right/3.2cqw .45cqw,linear-gradient(#2b2415,#2b2415) bottom right/.45cqw 3.2cqw;background-repeat:no-repeat}
+  background:linear-gradient(#fff,#fff) top left/3.2cqw .45cqw,linear-gradient(#fff,#fff) top left/.45cqw 3.2cqw,
+  linear-gradient(#fff,#fff) top right/3.2cqw .45cqw,linear-gradient(#fff,#fff) top right/.45cqw 3.2cqw,
+  linear-gradient(#fff,#fff) bottom left/3.2cqw .45cqw,linear-gradient(#fff,#fff) bottom left/.45cqw 3.2cqw,
+  linear-gradient(#fff,#fff) bottom right/3.2cqw .45cqw,linear-gradient(#fff,#fff) bottom right/.45cqw 3.2cqw;background-repeat:no-repeat;opacity:.75}
 .vc-scan{font-size:2.35cqw;text-align:center;line-height:1.35;margin:3.6cqw 0 0;opacity:.85}
-.vc-cv{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:1.6cqw;width:100%;padding:2.2cqw 0;border-radius:99px;background:#141a2e;color:#f4ead0;text-decoration:none;font-weight:500;font-size:2.7cqw;box-shadow:0 1.2cqw 2.4cqw rgba(20,26,46,.35);transition:transform .2s,box-shadow .2s}
-.vc-cv:hover{transform:translateY(-2px);box-shadow:0 1.8cqw 3.4cqw rgba(20,26,46,.45)}
+.vc-cv{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:1.6cqw;width:100%;padding:2.2cqw 0;border-radius:99px;background:var(--grad-btn);color:var(--white);text-decoration:none;font-weight:500;font-size:2.7cqw;box-shadow:inset .8cqw .8cqw 2cqw #7721B1,0 1.2cqw 2.4cqw rgba(31,91,255,.35);outline:.3cqw solid rgba(255,255,255,.85);outline-offset:-.5cqw;transition:transform .2s,box-shadow .2s}
+.vc-cv:hover{transform:translateY(-2px);box-shadow:inset .8cqw .8cqw 2cqw #7721B1,0 1.8cqw 3.4cqw rgba(31,91,255,.5)}
 .vc-cv svg{width:2.8cqw;height:2.8cqw}
 .vc-flip{margin-top:2.6cqw;display:flex;align-items:center;gap:1.2cqw;border:0;background:none;color:inherit;cursor:pointer;font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:600;font-size:2.1cqw;letter-spacing:.2em;opacity:.7;transition:opacity .2s}
 .vc-flip:hover{opacity:1}
 .vc-flip svg{width:2.6cqw;height:2.6cqw}
 .vc-back{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6cqw}
-.vc-mono{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:15cqw;line-height:.9;letter-spacing:-.04em;background:linear-gradient(160deg,#3a2f17,#7a6233);-webkit-background-clip:text;background-clip:text;color:transparent}
+.vc-mono{font-family:"Kanit",sans-serif;font-weight:900;font-size:15cqw;line-height:.9;letter-spacing:-.03em;background:linear-gradient(160deg,#ffffff 10%,#8fb0ff 55%,#c39bff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .vc-back .vc-tag{margin-top:2.4cqw;text-align:center}
 .vc-socials{display:flex;gap:3cqw;margin-top:5cqw}
-.vc-socials a{display:flex;align-items:center;gap:1.2cqw;color:inherit;text-decoration:none;font-weight:500;font-size:2.7cqw;padding:1.4cqw 2.6cqw;border-radius:99px;border:.25cqw solid rgba(43,36,21,.35);transition:background .2s}
-.vc-socials a:hover{background:rgba(255,255,255,.35)}
+.vc-socials a{display:flex;align-items:center;gap:1.2cqw;color:inherit;text-decoration:none;font-weight:500;font-size:2.7cqw;padding:1.4cqw 2.6cqw;border-radius:99px;border:.25cqw solid rgba(215,226,234,.35);transition:background .2s,border-color .2s}
+.vc-socials a:hover{background:rgba(31,91,255,.25);border-color:var(--light)}
 .vc-socials svg{width:3cqw;height:3cqw}
 .vc-back .vc-flip{position:absolute;right:5cqw;bottom:4.4cqw;margin:0}
 .vc-toast{position:absolute;left:50%;bottom:-46px;transform:translateX(-50%);font-size:.9rem;opacity:0;transition:opacity .3s;pointer-events:none}
@@ -622,7 +626,7 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
     <div class="vc-float"><div class="vc-tilt" id="vcTilt">
       <div class="vcard" id="vcard">
         <div class="vc-face vc-front">
-          <svg class="vc-wave" viewBox="0 0 172 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 74C30 60 52 78 82 62s52-40 90-36V100H0Z" fill="rgba(255,248,225,.32)"/><path d="M0 86c34-12 62 4 96-10s50-22 76-18V100H0Z" fill="rgba(255,248,225,.22)"/></svg>
+          <svg class="vc-wave" viewBox="0 0 172 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 74C30 60 52 78 82 62s52-40 90-36V100H0Z" fill="rgba(31,91,255,.10)"/><path d="M0 86c34-12 62 4 96-10s50-22 76-18V100H0Z" fill="rgba(118,33,176,.14)"/></svg>
           <div class="vc-left">
             <div class="vc-id">
               <img src="assets/portrait.webp" alt="Fedi Limem" width="96" height="96" loading="lazy">
@@ -648,7 +652,7 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
           </div>
         </div>
         <div class="vc-face vc-back" aria-hidden="true">
-          <svg class="vc-wave" viewBox="0 0 172 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30C40 44 70 18 110 30s44 14 62 6V0H0Z" fill="rgba(255,248,225,.28)"/></svg>
+          <svg class="vc-wave" viewBox="0 0 172 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30C40 44 70 18 110 30s44 14 62 6V0H0Z" fill="rgba(31,91,255,.12)"/></svg>
           <div class="vc-mono">FL</div>
           <p class="vc-tag" data-i18n="card.tag2">LLM fine-tuning · RAG · AI agents · MLOps</p>
           <div class="vc-socials">
