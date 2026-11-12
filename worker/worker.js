@@ -55,11 +55,25 @@ function corsHeaders(origin){
   };
 }
 
-function json(data, status, origin){
+function json(data, status, origin, extraHeaders = {}){
   return new Response(JSON.stringify(data), {
     status,
-    headers: {'Content-Type': 'application/json; charset=utf-8', ...(origin ? corsHeaders(origin) : {})},
+    headers: {'Content-Type': 'application/json; charset=utf-8', ...(origin ? corsHeaders(origin) : {}), ...extraHeaders},
   });
+}
+
+/* ~10 questions per minute per IP (RATE_LIMITER binding, wrangler.toml). Approximate by design:
+   counts are per Cloudflare location. Without the binding, or if it fails, the request goes through. */
+async function overLimit(request, env){
+  if (!env.RATE_LIMITER) return false;
+  try {
+    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+    const {success} = await env.RATE_LIMITER.limit({key: ip});
+    return !success;
+  } catch (e) {
+    console.error('Rate limiter error', e && e.message);
+    return false;
+  }
 }
 
 /* Keeps only well-formed user/assistant messages, the last MAX_HISTORY, ending with a visitor question. */
@@ -82,6 +96,9 @@ export default {
 
     if (request.method === 'OPTIONS') return new Response(null, {status: 204, headers: corsHeaders(origin)});
     if (request.method !== 'POST') return json({error: 'method not allowed'}, 405, origin);
+
+    // Before any parsing or Groq call. CORS headers stay on the 429 so the widget can read it.
+    if (await overLimit(request, env)) return json({error: 'rate limited'}, 429, origin, {'Retry-After': '60'});
 
     const raw = await request.text();
     if (raw.length > MAX_BODY) return json({error: 'request too large'}, 413, origin);

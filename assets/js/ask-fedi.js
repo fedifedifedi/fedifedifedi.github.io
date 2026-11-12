@@ -22,6 +22,7 @@
       placeholder:'Ask a question about Fedi…', send:'Send', close:'Close the assistant',
       loading:'The assistant is writing', note:'AI answers can contain mistakes. When in doubt, ask Fedi.',
       error:'The assistant is not available right now. You can write to Fedi directly: ',
+      busy:'Many questions in a short time: please try again in a minute, or write to Fedi directly: ',
       sugg:['What are his strengths?','Tell me about DocBot','What did he do at Talan?','Which AI skills does he have?'],
     },
     fr:{
@@ -31,6 +32,7 @@
       placeholder:'Posez une question sur Fedi…', send:'Envoyer', close:"Fermer l'assistant",
       loading:"L'assistant écrit", note:"Les réponses d'une IA peuvent contenir des erreurs. En cas de doute, demandez à Fedi.",
       error:"L'assistant n'est pas disponible pour le moment. Vous pouvez écrire directement à Fedi : ",
+      busy:"Beaucoup de questions en peu de temps : réessayez dans une minute, ou écrivez directement à Fedi : ",
       sugg:['Quels sont ses points forts ?','Parle-moi de DocBot',"Qu'a-t-il fait chez Talan ?",'Quelles compétences en IA a-t-il ?'],
     },
   };
@@ -122,8 +124,8 @@
     el.append(dots);
     return el;
   }
-  function errorBubble(){
-    const el = bubble('af-bot af-err', T[lang].error);
+  function errorBubble(kind){   // kind: 'error' or 'busy' (429, too many questions)
+    const el = bubble('af-bot af-err', T[lang][kind]);
     const a = document.createElement('a');
     a.href = 'mailto:' + EMAIL;
     a.textContent = EMAIL;
@@ -148,14 +150,18 @@
         body:JSON.stringify({messages:history.slice(-MAX_HISTORY), lang}),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok || typeof data.reply !== 'string' || !data.reply.trim()) throw new Error(data.error || res.status);
+      if (!res.ok || typeof data.reply !== 'string' || !data.reply.trim()){
+        const err = new Error(data.error || res.status);
+        err.status = res.status;
+        throw err;
+      }
       wait.remove();
       bubble('af-bot', data.reply.trim());
       history.push({role:'assistant', content:data.reply.trim()});
     } catch(e){
       wait.remove();
-      history.pop();   // the question got no answer: do not resend it as context
-      errorBubble();
+      history.pop();   // the question got no answer (error or 429): do not resend it as context
+      errorBubble(e.status === 429 ? 'busy' : 'error');
     } finally {
       busy = false;
       send.disabled = false;

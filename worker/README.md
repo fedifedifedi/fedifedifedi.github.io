@@ -17,6 +17,25 @@ Raisonnement : `reasoning_effort: "low"` et `include_reasoning: false`, qui reti
 de la réponse. Pour gpt-oss, Groq ne prend pas en charge `reasoning_format`, et les deux paramètres
 ne peuvent pas être envoyés ensemble.
 
+## Limite de requêtes
+
+Environ **10 questions par minute et par IP**, via le binding `RATE_LIMITER` déclaré dans `wrangler.toml`
+(wrangler 4.36 ou plus). Au-delà, le Worker répond `429` avec `Retry-After: 60` et les en-têtes CORS,
+et le widget affiche un message dédié avec l'e-mail de Fedi.
+
+- La limite est approximative : Cloudflare compte séparément dans chaque centre, sans garantie stricte.
+  Elle suffit pour freiner un abus.
+- Une règle de limitation du tableau de bord (WAF) ne s'applique pas ici : elle se crée sur un domaine
+  que l'on possède, et `workers.dev` appartient à Cloudflare.
+- Si le binding n'est pas disponible sur le compte, ou s'il échoue, le Worker répond quand même, sans
+  limite par IP. Le plan gratuit des Workers plafonne de toute façon à 100 000 requêtes par jour.
+- Après le déploiement, pour voir la limite : lancer `test-questions.ps1` deux fois de suite sur l'URL
+  déployée (16 questions en moins d'une minute) ; les dernières doivent afficher « Limite atteinte (429) ».
+
+`workers.dev` fait aussi passer chaque requête par le Browser Integrity Check de Cloudflare, qui ne peut
+pas être désactivé et peut bloquer les outils qui s'annoncent comme des scripts (erreur 1010). Les
+navigateurs ne sont pas concernés ; `test-questions.ps1` envoie donc un identifiant de navigateur.
+
 ## Déployer
 
 Dans PowerShell, depuis ce dossier `worker/` :

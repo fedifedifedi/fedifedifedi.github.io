@@ -6,3 +6,13 @@ compatibility_date = "2025-06-01"
 [vars]
 MODEL = "openai/gpt-oss-120b"
 KB_URL = "https://fedifedifedi.github.io/assets/fedi-knowledge.md"
+
+# About 10 questions per minute per visitor IP (approximate, counted per Cloudflare location).
+# Needs wrangler 4.36+. If the binding is unavailable, the Worker still answers, without this limit.
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 10
+  period = 60
