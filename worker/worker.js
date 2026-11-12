@@ -107,7 +107,12 @@ export default {
         body: JSON.stringify({
           model: env.MODEL,
           messages: [{role: 'system', content: system}, ...messages],
-          max_tokens: 400,
+          // gpt-oss is a reasoning model: think briefly, and leave the reasoning out of the response
+          // (for gpt-oss, Groq uses include_reasoning; reasoning_format is not supported).
+          reasoning_effort: 'low',
+          include_reasoning: false,
+          // max_tokens is deprecated on Groq. 700 leaves room for the reasoning before the answer.
+          max_completion_tokens: 700,
           temperature: 0.3,
         }),
       });

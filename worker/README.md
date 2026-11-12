@@ -6,12 +6,16 @@ La clé Groq reste un secret du Worker : elle n'est ni dans la page, ni dans git
 | Réglage | Où | Valeur |
 |---|---|---|
 | `GROQ_API_KEY` | secret Cloudflare (`wrangler secret put`) / `.dev.vars` en local | clé Groq `gsk_…` |
-| `MODEL` | `wrangler.toml` | `llama-3.3-70b-versatile` (vérifier qu'il est toujours listé sur console.groq.com/docs/models) |
+| `MODEL` | `wrangler.toml` | `openai/gpt-oss-120b` (modèle de raisonnement) |
 | `KB_URL` | `wrangler.toml` | `https://fedifedifedi.github.io/assets/fedi-knowledge.md` |
 
 Limites appliquées par le Worker : origines `https://fedifedifedi.github.io` et localhost,
-historique de 8 messages, questions de 600 caractères, `max_tokens` 400, `temperature` 0,3,
+historique de 8 messages, questions de 600 caractères, `max_completion_tokens` 700
+(`max_tokens` est déprécié chez Groq ; la marge laisse la place au raisonnement), `temperature` 0,3,
 base de connaissances en cache 1 h.
+Raisonnement : `reasoning_effort: "low"` et `include_reasoning: false`, qui retire le raisonnement
+de la réponse. Pour gpt-oss, Groq ne prend pas en charge `reasoning_format`, et les deux paramètres
+ne peuvent pas être envoyés ensemble.
 
 ## Déployer
 
