@@ -18,6 +18,8 @@
     en:{
       launch:'Ask Fedi', launchLabel:"Open Ask Fedi, Fedi's AI assistant", title:'Ask Fedi',
       hint:'👋 Questions about Fedi? Ask his AI', hintClose:'Close this message',
+      heroLabel:'Ask my AI assistant anything about me', heroPh:'Ask about my profile, strengths or projects…',
+      heroAria:'Ask my AI assistant a question', heroSend:'Ask',
       sub:"An AI assistant that answers from Fedi's portfolio only.",
       hello:"Hi! Ask me about Fedi's profile, strengths, experience or projects.",
       placeholder:'Ask a question about Fedi…', send:'Send', close:'Close the assistant',
@@ -29,6 +31,8 @@
     fr:{
       launch:'Ask Fedi', launchLabel:"Ouvrir Ask Fedi, l'assistant IA de Fedi", title:'Ask Fedi',
       hint:'👋 Une question sur Fedi ? Demandez à son IA', hintClose:'Fermer ce message',
+      heroLabel:'Posez vos questions à mon assistant IA', heroPh:'Mes points forts, mes projets…',
+      heroAria:'Poser une question à mon assistant IA', heroSend:'Demander',
       sub:'Un assistant IA qui répond uniquement à partir du portfolio de Fedi.',
       hello:"Bonjour ! Posez-moi vos questions sur le profil, les points forts, l'expérience ou les projets de Fedi.",
       placeholder:'Posez une question sur Fedi…', send:'Envoyer', close:"Fermer l'assistant",
@@ -82,6 +86,17 @@
   const $ = s => panel.querySelector(s);
   const log = $('.af-log'), sugg = $('.af-sugg'), form = $('.af-form'), input = $('textarea'), send = $('.af-send'), closeBtn = $('.af-close');
 
+  // Question bar in the hero (index.html, data-ask-fedi-hero): the first thing a visitor sees
+  const hero = document.querySelector('[data-ask-fedi-hero]');
+  const heroInput = hero && hero.querySelector('[data-af="input"]');
+  if (hero) hero.querySelector('[data-af="form"]').addEventListener('submit', e => {
+    e.preventDefault();
+    const q = heroInput.value.trim();
+    heroInput.value = '';
+    open(heroInput);
+    if (q) ask(q);
+  });
+
   const history = [];   // {role:'user'|'assistant', content}
   let busy = false;
   let helloEl = null;   // greeting bubble, re-translated when the language changes
@@ -93,6 +108,20 @@
     hint.querySelector('.af-hint-open').textContent = t('hint');
     hint.querySelector('.af-hint-x').setAttribute('aria-label', t('hintClose'));
     if (!hint.hidden) placeHint();
+    if (hero){
+      hero.querySelector('[data-af="label"]').textContent = t('heroLabel');
+      heroInput.placeholder = t('heroPh');
+      heroInput.setAttribute('aria-label', t('heroAria'));
+      hero.querySelector('[data-af="send"]').setAttribute('aria-label', t('heroSend'));
+      hero.querySelector('[data-af="chips"]').replaceChildren(...t('sugg').slice(0, 3).map(q => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = q;
+        b.dataset.gc = 'ask-fedi-hero-chip';
+        b.addEventListener('click', () => { open(b); ask(q); });
+        return b;
+      }));
+    }
     $('#afTitle').textContent = t('title');
     $('.af-sub').textContent = t('sub');
     input.placeholder = t('placeholder');
@@ -195,12 +224,19 @@
     hint.style.bottom = (vh - r.bottom) + 'px';
     hint.style.maxWidth = Math.max(160, r.left - 10 - 12) + 'px';   // keep a 12px margin on the left edge
   }
-  let hintTimer = 0;
-  if (!hintDone()) hintTimer = setTimeout(() => {
-    if (hintDone() || !panel.hidden) return;
+  // After 4 s, and only while the hero question bar is out of view (no need to point at it when it is on screen)
+  let hintTimer = 0, hintDue = false;
+  const heroInView = () => { if (!hero) return false; const r = hero.getBoundingClientRect(); return r.bottom > 0 && r.top < document.documentElement.clientHeight; };
+  function maybeShowHint(){
+    if (!hintDue || hintDone() || !panel.hidden || !hint.hidden || heroInView()) return;
     hint.hidden = false;
     placeHint();
-  }, 4000);
+    removeEventListener('scroll', maybeShowHint);
+  }
+  if (!hintDone()){
+    hintTimer = setTimeout(() => { hintDue = true; maybeShowHint(); }, 4000);
+    addEventListener('scroll', maybeShowHint, {passive:true});
+  }
   addEventListener('resize', () => { if (!hint.hidden) placeHint(); });
   hint.querySelector('.af-hint-open').addEventListener('click', () => open(launch));
   hint.querySelector('.af-hint-x').addEventListener('click', () => { dismissHint(); launch.focus(); });
