@@ -1,3 +1,6 @@
 # Copy this file to .dev.vars (ignored by git) for `npx wrangler dev`, then paste your real key.
 # Never commit .dev.vars.
 GROQ_API_KEY=gsk_your_key_here
+
+# Local tests: read the knowledge base served by Live Server instead of the published one
+KB_URL=http://127.0.0.1:5500/assets/fedi-knowledge.md

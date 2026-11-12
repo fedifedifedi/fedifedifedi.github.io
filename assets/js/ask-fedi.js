@@ -4,8 +4,11 @@
 (function(){
   'use strict';
 
-  // Address of the deployed Worker: the only line to change after `npx wrangler deploy`.
-  const API_URL = 'https://ask-fedi.YOUR-SUBDOMAIN.workers.dev';
+  // Address of the Worker: replace the second URL by the one `npx wrangler deploy` prints.
+  // On localhost (Live Server) the widget talks to `npx wrangler dev` instead.
+  const API_URL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname)
+    ? 'http://localhost:8787'
+    : 'https://ask-fedi.YOUR-SUBDOMAIN.workers.dev';
 
   const EMAIL = 'fedilimem7@gmail.com';
   const MAX_CHARS = 600;     // same limit as the Worker
