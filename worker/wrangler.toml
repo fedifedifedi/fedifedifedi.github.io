@@ -1,0 +1,8 @@
+name = "ask-fedi"
+main = "worker.js"
+compatibility_date = "2025-06-01"
+
+# Public settings. The API key is NOT here: `npx wrangler secret put GROQ_API_KEY`
+[vars]
+MODEL = "llama-3.3-70b-versatile"
+KB_URL = "https://fedifedifedi.github.io/assets/fedi-knowledge.md"
