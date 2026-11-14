@@ -787,6 +787,16 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
 
   /* ---------- Projects: featured (large cards), then compact cards, then "More projects" ---------- */
   const PROJECTS = [
+    {cat:'Personal project', catFr:'Projet personnel', name:'Panacea — Forgotten remedies in ancient texts', nameFr:'Panacea — Les remèdes oubliés des textes anciens',
+     gc:'panacea', link:'https://github.com/fedifedifedi/panacea', linkLabel:'Source code', linkLabelFr:'Code source', ga:'160deg',
+     image:{src:'assets/projects/panacea.webp', anim:'assets/projects/panacea-anim.webp', play:'auto', w:960, h:585,
+            alt:'Panacea: home page, knowledge graph, the forgotten-remedies chart, then a sourced answer to a question about garlic',
+            altFr:"Panacea : page d'accueil, graphe de connaissances, zone des remèdes oubliés, puis une réponse sourcée sur l'ail"},
+     desc:"An AI platform that rereads Culpeper's 1653 herbal to find research leads. An LLM extracts structured records with quotes verified word for word, Wikidata adds the known molecules, PubMed measures how much each plant has been studied, and a hybrid RAG assistant answers questions by separating ancient knowledge from modern science.",
+     descFr:"Une plateforme IA qui relit l'herbier de Culpeper (1653) pour dégager des pistes de recherche. Un LLM extrait des fiches structurées avec des citations vérifiées mot pour mot, Wikidata ajoute les molécules connues, PubMed mesure à quel point chaque plante est étudiée, et un assistant RAG hybride répond aux questions en séparant savoir ancien et science moderne.",
+     points:['328 plants, 4,324 molecules, 15,753 PubMed articles','Hybrid RAG (BM25 + embeddings), sourced answers','Innovation score and knowledge graph'],
+     pointsFr:['328 plantes, 4 324 molécules, 15 753 articles PubMed','RAG hybride (BM25 + embeddings), réponses sourcées','Score de piste innovante et graphe de connaissances'],
+     tags:['Python','Gemini','RAG','Streamlit','Plotly']},
     {cat:'Personal project', catFr:'Projet personnel', name:'DocBot', link:'https://github.com/fedifedifedi/docbot', ga:'60deg',
      image:{src:'assets/projects/docbot.webp', anim:'assets/projects/docbot-anim.webp', play:'auto', w:960, h:585,
             alt:'DocBot answers questions from the documentation, cites its sources, and says so when the answer is not there',
