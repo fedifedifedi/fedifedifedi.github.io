@@ -797,6 +797,17 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
      points:['328 plants, 4,324 molecules, 15,753 PubMed articles','Hybrid RAG (BM25 + embeddings), sourced answers','Innovation score and knowledge graph'],
      pointsFr:['328 plantes, 4 324 molécules, 15 753 articles PubMed','RAG hybride (BM25 + embeddings), réponses sourcées','Score de piste innovante et graphe de connaissances'],
      tags:['Python','Gemini','RAG','Streamlit','Plotly']},
+    {cat:'Personal project', catFr:'Projet personnel', name:'Door Bina — Carthage by bike', nameFr:'Door Bina — Carthage à vélo',
+     gc:'door-bina', link:'https://fedifedifedi.github.io/door-bina/', linkLabel:'Live site', linkLabelFr:'Voir le site', ga:'200deg',
+     image:{src:'assets/projects/door-bina.webp', anim:'assets/projects/door-bina-anim.webp', play:'auto', w:960, h:585,
+            alt:'Door Bina 3D journey: a cyclist rides past Byrsa Hill and Saint Louis Cathedral, then takes off above the clouds for a final word on Carthage',
+            altFr:"Le voyage 3D de Door Bina : un cycliste passe devant la colline de Byrsa et la cathédrale Saint-Louis, puis s'envole au-dessus des nuages pour un dernier mot sur Carthage"},
+     desc:"A web app that turns a visit to Carthage into a bike treasure hunt: 8 historic places, with an audio guide, a question and a hidden letter at each stop. A real-time 3D journey shows the whole route and the visitor's live GPS position; stamps, points and a signed-QR leaderboard decide who wins a historical gift.",
+     descFr:"Une application web qui transforme la visite de Carthage en jeu de piste à vélo : 8 lieux historiques, avec un audioguide, une question et une lettre cachée à chaque étape. Un voyage 3D temps réel montre tout le parcours et la position GPS du visiteur en direct ; tampons, points et classement par QR codes signés désignent le groupe qui gagne un cadeau historique.",
+     points:['Real-time 3D journey with Three.js / WebGL','Live GPS position and automatic arrival detection','Audio guide in 4 languages, Arabic right-to-left interface'],
+     pointsFr:['Voyage 3D temps réel avec Three.js / WebGL','Position GPS en direct et détection automatique des arrivées',"Audioguide en 4 langues, interface en arabe de droite à gauche"],
+     tags:['Three.js','WebGL','JavaScript','Leaflet','Geolocation','i18n / RTL'],
+     tagsFr:['Three.js','WebGL','JavaScript','Leaflet','Géolocalisation','i18n / RTL']},
     {cat:'Personal project', catFr:'Projet personnel', name:'DocBot', link:'https://github.com/fedifedifedi/docbot', ga:'60deg',
      image:{src:'assets/projects/docbot.webp', anim:'assets/projects/docbot-anim.webp', play:'auto', w:960, h:585,
             alt:'DocBot answers questions from the documentation, cites its sources, and says so when the answer is not there',
@@ -930,7 +941,7 @@ footer{text-align:center;padding:0 20px 40px;font-weight:300;opacity:.5;font-siz
     } else if (v.dataset.loaded) v.pause();
   }), {rootMargin:'200px 0px'}) : null;
   function setupVideos(){
-    document.querySelectorAll('.pvideo').forEach(v => {
+    document.querySelectorAll('video.pvideo').forEach(v => {   // only real videos: animated images share the class
       if (reduce) v.controls = true;
       if (videoIO) videoIO.observe(v); else { v.innerHTML = `<source src="${v.dataset.mp4}" type="video/mp4">`; v.load(); }
     });
