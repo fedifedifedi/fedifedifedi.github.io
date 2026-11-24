@@ -7,31 +7,31 @@
   'use strict';
 
   /* ---------- Particles ---------- */
-  const PARTICLES_DESKTOP = 150;
-  const PARTICLES_MOBILE = 60;             // screens narrower than MOBILE_WIDTH
+  const PARTICLES_DESKTOP = 220;
+  const PARTICLES_MOBILE = 90;             // screens narrower than MOBILE_WIDTH
   const MOBILE_WIDTH = 640;
-  const CLUSTERS = 14;                     // small groups drifting together (fewer on phones)
+  const CLUSTERS = 20;                     // small groups drifting together (fewer on phones)
   const CLUSTERED_SHARE = 0.55;            // share of particles born in a group (the rest are loose)
   const CLUSTER_SPREAD = 60;               // px around a group centre
-  const PARTICLE_SIZE = [1, 2];            // radius, px
-  const PARTICLE_OPACITY = [0.6, 0.9];
+  const PARTICLE_SIZE = [1.4, 2.6];            // radius, px
+  const PARTICLE_OPACITY = [0.85, 1];
   const PARTICLE_COLOR = '255,255,255';
   const SPEED = [0.1, 0.3];                // px per frame at 60 fps: very slow drift
 
   /* ---------- Links: short, so they only join close points into small triangles ---------- */
-  const LINK_DISTANCE = 90;                // px
+  const LINK_DISTANCE = 105;                // px
   const LINK_COLOR = '255,255,255';
-  const LINK_OPACITY = 0.35;               // at distance 0, fades to 0 at LINK_DISTANCE
-  const LINK_WIDTH = 0.5;
+  const LINK_OPACITY = 0.6;               // at distance 0, fades to 0 at LINK_DISTANCE
+  const LINK_WIDTH = 0.9;
 
   /* ---------- Mouse ---------- */
   const MOUSE_RADIUS = 140;                // px
   const MOUSE_LINK_COLOR = '255,255,255';
-  const MOUSE_LINK_OPACITY = 0.5;
-  const MOUSE_LINK_WIDTH = 0.6;
+  const MOUSE_LINK_OPACITY = 0.75;
+  const MOUSE_LINK_WIDTH = 1;
   const MOUSE_PULL = 0.002;                // gentle attraction (negative = soft repulsion)
   const CLICK_PARTICLES = [3, 4];
-  const MAX_PARTICLES = 200;
+  const MAX_PARTICLES = 280;
 
   const hero = document.getElementById('top');
   const cv = document.getElementById('neural');
